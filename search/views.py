@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def tag_search(request):
+    return render(request, 'search/tag_search.html')
