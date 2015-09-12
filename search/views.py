@@ -4,5 +4,5 @@ def tag_search(request):
     return render(request, 'search/tag_search.html')
     
 def tag_search_results(request):
-    context = {'tags' : request.POST['tags'].split(';')}
-    return render(request, 'results/tag_search_results.html', context)
+   context = {'tags' : request.POST['tags'].split(';')}
+   return render(request, 'search/tag_search_results.html', context)
