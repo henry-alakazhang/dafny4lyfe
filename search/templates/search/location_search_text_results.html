@@ -1,0 +1,28 @@
+<h1>Search by location name</h1>
+You searched for: <p>
+<div id="location">{{ location }}</div> <p>
+This has coordinates: <p>
+<div id="coords"> </div>
+<script>
+    function init()
+    {
+        var location = document.getElementById('location').innerHTML;
+        gc = new google.maps.Geocoder();
+        gc.geocode({'address' : location}, 
+            function(results, status)
+            {
+                if (status === google.maps.GeocoderStatus.OK)
+                {
+                    document.getElementById('coords').innerHTML = results[0].geometry.location.toString();
+                }
+                else
+                {
+                    document.getElementById('coords').innerHTML = "Failed because " + status;
+                }
+            }
+        );
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=init"
+        async defer>
+</script>
