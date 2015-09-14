@@ -27,7 +27,8 @@ function initMap() {
     var lat = e.latLng.lat();
     var lng = e.latLng.lng();
 //    alert("Lat=" + lat + "; Lng=" + lng);
-    window.location.href = 'results?lat=' + lat + '&lng=' + lng;
+    window.location.href = 'map/results?lat=' + lat + '&lng=' + lng;
+//    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
   });
 }
 
@@ -35,7 +36,7 @@ function httpGetAsync(url, callback) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
       if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-        window.location.replace(url);
+        callback(xmlHttp.responseText);
       }
     }
     xmlHttp.open("GET", url, true); // true for asynchronous 
