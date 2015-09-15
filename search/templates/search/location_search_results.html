@@ -3,4 +3,7 @@ You searched for:
 <ul>
   <li> {{ lat }} </li>
   <li> {{ lng }} </li>
+  {% for url in urlList %}
+    <li> <img src="{{ url }}"> </li>
+  {% endfor %}
 </ul>
