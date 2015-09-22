@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load slider_tags %}
       {% load staticfiles %}
-      <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>  
+      <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+        <script src="{% static "search/moment.js"%}"></script>
       <link rel="stylesheet" type="text/css" href="{% static "search/slider.css" %}" />
       
     <style type="text/css">
@@ -70,50 +72,44 @@ function testCallback(responseText) {
     <script type="text/javascript">
     // DOM Ready
 $(function() {
- var el, newPoint, newPlace, offset;
+ var el, nx, newPoint, newPlace, offset;
  
  // Select all range inputs, watch for change
  $("input[type='range']").on('input', function() {
  
    // Cache this for efficiency
    el = $(this);
-   
+   nx = el.next("output");
    // Measure width of range input
    width = el.width();
-   
    // Figure out placement percentage between left and right of input
    newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
-   /*console.log(el.val());
-   console.log(el.attr("min"));
-   console.log(el.attr("max"));
-   console.log(newPoint);*/
-   // Janky value to get pointer to line up better
-   offset = -1.3;
+   //console.log(el.val());
    
    // Prevent bubble from going beyond left or right (unsupported browsers)
    if (newPoint < 0) { newPlace = 0; }
    else if (newPoint > 1) { newPlace = width; }
-   else { newPlace = width * newPoint + offset; offset -= newPoint; }
+   else {newPlace = width * newPoint}
    
    // Move bubble
-   el
-     .next("output")
-     .css({
-       left: newPlace,
-       marginLeft: offset + "%"
-      })
-     .text(el.val());
+   nx.css({left: newPlace})
+     .text(selectedDate(el.val()));
  })
  // Fake a change to position bubble at page load
  .trigger('input');
 });
+
+function selectedDate(days) {
+    var selected;
+    selected = moment("1850-01-01");
+    selected.add(days, 'd');
+    return selected.format("DD MMM YYYY");
+}
 </script>
-    {% load slider_tags %}
-    <form>
+
     <div id="slider">
-      <input type="range" name="foo" id="foo" min=0 max={% time_from_start %}>
-      <output for="foo" id="fooval"></output>
+      <input type="range" name="foo" min=0 max={% time_from_start %}>
+      <output for="foo">0</output>
     </div>
-    </form>
   </body>
 </html>
