@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import flickrapi
+import math
 
 FLICKR_API_KEY = u'd924f5ea2a765922fc8794b3f9942133'
 FLICKR_API_SECRET = u'2eefb6d5fbaab4f4'
@@ -19,16 +20,14 @@ def location_search(request):
 
 def location_search_results(request):
    context = {}
+
    lat = float(request.GET.get('lat', ''))
    lng = float(request.GET.get('lng', ''))
-   minLat = lat - 0.2
-   maxLat = lat + 0.2
-   minLng = lng - 0.2
-   maxLng = lng + 0.2
-
+   dist = int(request.GET.get('dist', ''))
    context["lat"] = lat
    context["lng"] = lng
-   bounds = "{0}, {1}, {2}, {3}".format(minLng, minLat, maxLng, maxLat)
+
+   bounds = point_dist_to_bbox(lat, lng, dist)
 
    urlList = []
    for photo in flickr.walk(bbox=bounds, tags='beach, sky, sunset', tag_mode='all'):
@@ -37,7 +36,8 @@ def location_search_results(request):
                   '.staticflickr.com/' + photo.get('server') + '/' + 
                   photo.get('id') + '_' + photo.get('secret') + '_b.jpg')
       #https://www.flickr.com/photos/{user-id}/{photo-id}
-      originUrl = ('https://www.flickr.com/photos/' + photo.get('owner') + '/' + photo.get('id'))
+      originUrl = ('https://www.flickr.com/photos/' + photo.get('owner') + 
+                   '/' + photo.get('id'))
       urlList.append((photoUrl, originUrl, photo.get('title')))
       print(photoUrl)
    
@@ -50,3 +50,15 @@ def location_search_text(request):
 def location_search_text_results(request):
    context = {'location' : request.POST['location']}
    return render(request, 'search/location_search_text_results.html', context)
+
+# given coordinates and distance in metres, returns bounds as a string
+# in the format "minLng, minLat, maxLng, maxLat"
+# currently using quick and dirty method of 
+# 111 111 = 1deg lat, 111 111 * cos(lat) = 1 deg lng
+def point_dist_to_bbox(lat, lng, dist):
+   minLat = lat - dist/111111
+   maxLat = lat + dist/111111
+   minLng = lng - (dist/111111 * abs(math.cos(lat)))
+   maxLng = lng + (dist/111111 * abs(math.cos(lat)))
+   bbox = "{0}, {1}, {2}, {3}".format(minLng, minLat, maxLng, maxLat)
+   return bbox
