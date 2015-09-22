@@ -4,7 +4,8 @@ import flickrapi
 FLICKR_API_KEY = u'd924f5ea2a765922fc8794b3f9942133'
 FLICKR_API_SECRET = u'2eefb6d5fbaab4f4'
 
-flickr = flickrapi.FlickrAPI(FLICKR_API_KEY, FLICKR_API_SECRET)
+flickr = flickrapi.FlickrAPI(FLICKR_API_KEY, FLICKR_API_SECRET, cache=True)
+flickr.cache = flickrapi.SimpleCache(timeout=300, max_entries=200)
 
 def tag_search(request):
    return render(request, 'search/tag_search.html')
@@ -29,13 +30,15 @@ def location_search_results(request):
    context["lng"] = lng
    bounds = "{0}, {1}, {2}, {3}".format(minLng, minLat, maxLng, maxLat)
 
-   urlList = {}
+   urlList = []
    for photo in flickr.walk(bbox=bounds, tags='beach, sky, sunset', tag_mode='all'):
-      #https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+      #https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_{size}.jpg
       photoUrl = ('https://farm' + photo.get('farm') + 
                   '.staticflickr.com/' + photo.get('server') + '/' + 
-                  photo.get('id') + '_' + photo.get('secret') + '.jpg')
-      urlList[photoUrl] = {}
+                  photo.get('id') + '_' + photo.get('secret') + '_b.jpg')
+      #https://www.flickr.com/photos/{user-id}/{photo-id}
+      originUrl = ('https://www.flickr.com/photos/' + photo.get('owner') + '/' + photo.get('id'))
+      urlList.append((photoUrl, originUrl, photo.get('title')))
       print(photoUrl)
    
    context['urlList'] = urlList

@@ -1,9 +1,10 @@
 <h1>Search by location</h1>
-You searched for:
+You searched for {{ lat }},{{ lng }}.
 <ul>
-  <li> {{ lat }} </li>
-  <li> {{ lng }} </li>
-  {% for url in urlList %}
-    <li> <img src="{{ url }}"> </li>
+  {% for photo, owner, title in urlList %}
+    <li> <img src="{{ photo }}"> <p>
+        {{ title }} <p>
+        <a href="{{ owner }}">View original on flickr</a>
+    </li>
   {% endfor %}
 </ul>
