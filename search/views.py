@@ -21,16 +21,22 @@ def location_search(request):
 def location_search_results(request):
    context = {}
 
+   # location info
    lat = float(request.GET.get('lat', ''))
    lng = float(request.GET.get('lng', ''))
    dist = int(request.GET.get('dist', ''))
    context["lat"] = lat
    context["lng"] = lng
-
    bounds = point_dist_to_bbox(lat, lng, dist)
 
+   # time range info (unix timestamp)
+   minDate = '2014-08-20'
+   maxDate = '2015-09-20'
+
    urlList = []
-   for photo in flickr.walk(bbox=bounds, tags='beach, sky, sunset', tag_mode='all'):
+   for photo in flickr.walk(bbox=bounds, 
+                            min_taken_date=minDate, max_taken_date=maxDate,
+                            sort='date-taken-desc', per_page='500'):
       #https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_{size}.jpg
       photoUrl = ('https://farm' + photo.get('farm') + 
                   '.staticflickr.com/' + photo.get('server') + '/' + 
