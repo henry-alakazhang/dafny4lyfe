@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import flickrapi
 import math
+import datetime
 
 FLICKR_API_KEY = u'd924f5ea2a765922fc8794b3f9942133'
 FLICKR_API_SECRET = u'2eefb6d5fbaab4f4'
@@ -28,13 +29,14 @@ def location_search_results(request):
    context["lat"] = lat
    context["lng"] = lng
    bounds = point_dist_to_bbox(lat, lng, dist)
+   tags = request.GET.get('tags', '')
 
    # time range info (unix timestamp)
-   minDate = '2015-08-20'
-   maxDate = '2015-09-20'
+   minDate = request.GET.get('min_date', '')
+   maxDate = datetime.date.today().isoformat() #not timezone aware
 
    urlList = []
-   for photo in flickr.walk(bbox=bounds, tags='',
+   for photo in flickr.walk(bbox=bounds, tags=tags, tag_mode='all',
                             min_taken_date=minDate, max_taken_date=maxDate,
                             sort='date-taken-desc', per_page='500',
                             extras='date_taken'):
