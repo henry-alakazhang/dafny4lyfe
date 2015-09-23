@@ -79,13 +79,25 @@ function testCallback(responseText) {
   alert(responseText);
 }
 
+function getDate() {   
+    var date = moment("1850-01-01").add($(document.getElementById("sliderObj")).val(), 'd').format("YYYY-MM-DD");
+    //console.log(date);
+    return date;
+}
 
     </script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
     </script>
     </div>
+  
+
+    <div id="slider">
+      <input type="range" name="foo" min=0 max={% time_from_start %} id = "sliderObj">
+      <output for="foo">0</output>
+    </div>
     
+      
     <script type="text/javascript">
     // DOM Ready
 $(function() {
@@ -110,23 +122,15 @@ $(function() {
    
    // Move bubble
    nx.css({left: newPlace})
-     .text(selectedDate(el.val()));
+     .text(selectedDate(el.val()).format("DD MMM YYYY"));
  })
  // Fake a change to position bubble at page load
  .trigger('input');
 });
 
 function selectedDate(days) {
-    var selected;
-    selected = moment("1850-01-01");
-    selected.add(days, 'd');
-    return selected.format("DD MMM YYYY");
+    return moment("1850-01-01").add(days, 'd');
 }
 </script>
-
-    <div id="slider">
-      <input type="range" name="foo" min=0 max={% time_from_start %}>
-      <output for="foo">0</output>
-    </div>
   </body>
 </html>
