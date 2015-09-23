@@ -39,7 +39,7 @@ function initMap() {
     var lat = e.latLng.lat();
     var lng = e.latLng.lng();
     var dist = 20000; //CHANGE LATER (IMPLEMENT DIST SELECT) -> in metres
-    window.location.href = 'map/results?lat=' + lat + '&lng=' + lng + 
+    window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
                            '&dist=' + dist;
 //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
   });
