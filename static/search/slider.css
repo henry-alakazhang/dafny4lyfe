@@ -103,13 +103,13 @@ output {
    background-image: -o-linear-gradient(top, #444444, #999999);
    background-image: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#999999));
    background-image: -webkit-linear-gradient(top, #444444, #999999);
-  width: 40px; 
+  width: 100px; 
   height: 30px; 
   text-align: center; 
   color: black; 
   border-radius: 10px; 
   display: inline-block; 
-  font: bold 15px/30px Georgia;
+  font: bold 12px/24px Georgia;
   bottom: 175%;
   left: 0;
   margin-left: -1%;
