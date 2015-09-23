@@ -41,8 +41,12 @@
   </head>
   <body>
     <div id="floating-panel">
-      <input id="address" type="textbox" value="Sydney, NSW">
-      <input id="submit" type="button" value="Geocode">
+        <form>
+        <input id="address" type="textbox" value="Sydney, NSW">
+        <input id="submit" type="button" value="Geocode">
+        <label>within</label>
+        <input id="dist" type="textbox" value="100" size="6">
+        </form>
     </div>
     <div id="map"></div>
     <script type="text/javascript">
@@ -58,8 +62,9 @@ function initMap() {
     var lat = e.latLng.lat();
     var lng = e.latLng.lng();
     var dist = 2000; //CHANGE LATER (IMPLEMENT DIST SELECT) -> in metres
+    var date = getDate();
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
-                           '&dist=' + dist;
+                           '&dist=' + dist + '&date=' + date;
 //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
   });
 }
