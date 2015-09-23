@@ -30,13 +30,14 @@ def location_search_results(request):
    bounds = point_dist_to_bbox(lat, lng, dist)
 
    # time range info (unix timestamp)
-   minDate = '2014-08-20'
+   minDate = '2015-08-20'
    maxDate = '2015-09-20'
 
    urlList = []
-   for photo in flickr.walk(bbox=bounds, 
+   for photo in flickr.walk(bbox=bounds, tags='',
                             min_taken_date=minDate, max_taken_date=maxDate,
-                            sort='date-taken-desc', per_page='500'):
+                            sort='date-taken-desc', per_page='500',
+                            extras='date_taken'):
       #https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_{size}.jpg
       photoUrl = ('https://farm' + photo.get('farm') + 
                   '.staticflickr.com/' + photo.get('server') + '/' + 
@@ -44,7 +45,7 @@ def location_search_results(request):
       #https://www.flickr.com/photos/{user-id}/{photo-id}
       originUrl = ('https://www.flickr.com/photos/' + photo.get('owner') + 
                    '/' + photo.get('id'))
-      urlList.append((photoUrl, originUrl, photo.get('title')))
+      urlList.append((photoUrl, originUrl, photo.get('title'), photo.get('datetaken')))
       print(photoUrl)
    
    context['urlList'] = urlList
