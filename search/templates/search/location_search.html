@@ -68,7 +68,7 @@
             <p>Moments</p>
         </div><!--    
         --><div style="width:70%; text-align:center;" id="search">
-            <input style="width:75%" type="textbox" placeholder="Search Terms">
+            <input type="search" id="autocomplete" style="width:75%" type="textbox">
         </div><!--
         --><div style="width:15%" id="submit">
             <input type="button" value="Search">
@@ -128,6 +128,12 @@ function initMap() {
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
                            '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
   });
+  
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+  google.maps.event.addListener(autocomplete, 'place_changed', function(){
+    newSpot = autocomplete.getPlace();
+    marker.setPosition(autocomplete.getPlace().geometry.location);
+  });
 }
 
 function updateRadius() {
@@ -162,7 +168,7 @@ function getMaxDate() {
 
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
     </script>
     </div>
   

@@ -10,9 +10,5 @@ urlpatterns = [
    # /search/map/
    url(r'^map/?$', views.location_search, name='location_search'),
    # /search/map/results
-   url(r'^map/results.*', views.location_search_results, name='location_search_results'),
-   # /search/location/
-   url(r'^location/?$', views.location_search_text, name='location_search_text`'),
-   # /search/location/results/
-   url(r'^location/results/?$', views.location_search_text_results, name='location_search_text_results'),
+   url(r'^map/results.*', views.location_search_results, name='location_search_results')
 ]

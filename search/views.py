@@ -53,13 +53,6 @@ def location_search_results(request):
    context['urlList'] = urlList
    return render(request, 'search/location_search_results.html', context)
 
-def location_search_text(request):
-   return render(request, 'search/location_search_text.html')
-
-def location_search_text_results(request):
-   context = {'location' : request.POST['location']}
-   return render(request, 'search/location_search_text_results.html', context)
-
 # given coordinates and distance in metres, returns bounds as a string
 # in the format "minLng, minLat, maxLng, maxLat"
 # currently using quick and dirty method of 
