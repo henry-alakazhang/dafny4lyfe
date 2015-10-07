@@ -4,7 +4,9 @@
     {% load slider_tags %}
       {% load staticfiles %}
       <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-        <script src="{% static "search/moment.js"%}"></script>
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
       <link rel="stylesheet" type="text/css" href="{% static "search/slider.css" %}" />
       
     <style type="text/css">
@@ -13,6 +15,27 @@
         margin: 0;
         padding: 0;
       }
+	      #top,
+	#bottom {
+	    position: fixed;
+	    left: 0;
+	    right: 0;
+	}
+
+	#top {
+	    top: 0;
+	    height: 15%;
+	}
+	
+	#bottom {
+	    bottom: 0;
+	    height: 85%;
+	}
+	#top div {
+	   display: inline-block;
+	   vertical-align: middle;
+	   width: 100%;
+	}
       #map {
         height: 100%;
       }
@@ -25,27 +48,39 @@
          width: 75%;
       }
       #floating-panel {
-        position: absolute;
+      	position:absolute;
         top: 10px;
         left: 25%;
-        z-index: 5;
+        z-index: 10;
         background-color: #fff;
         padding: 5px;
         border: 1px solid #999;
         text-align: center;
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
-        padding-left: 10px;
+        padding-left: 10px;        
       }
     </style>
   </head>
   <body>
+    <div id="top">      
+        <div style="width:15%;height:100%" id="logo">
+            <p>Moments</p>
+        </div><!--    
+        --><div style="width:70%; text-align:center;" id="search">
+            <input style="width:75%" type="textbox" placeholder="Search Terms">
+        </div><!--
+        --><div style="width:15%" id="submit">
+            <input type="button" value="Search">
+        </div>
+    </div>
+  	<div id="bottom">
+    
     <div id="floating-panel">
         <form>
         <input id="tags-input" type="textbox" placeholder="Insert tags">
-        <input id="submit" type="button" value="Search">
         <label>within</label>
-        <input id="dist" type="textbox" value="10000" size="6", onchange="updateRadius()">
+        <input id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()">
         </form>
     </div>
     <div id="map"></div>
@@ -128,11 +163,23 @@ function getDate() {
   
 
     <div id="slider">
-      <input type="range" name="foo" min=0 max={% time_from_start %} id = "sliderObj">
       <output for="foo">0</output>
     </div>
+         
+    <script type="text/javascript">
+        var years = moment().year()-1850;
+        $("#slider").slider({
+            min: 0,
+            max: years,
+            step: 1,
+            values: [10, 90],
+            range: true,
+            slide: function(event, ui) {
+                
+            }
+        });
+    </script>
     
-      
     <script type="text/javascript">
     // DOM Ready
 $(function() {
@@ -167,5 +214,6 @@ function selectedDate(days) {
     return moment("1850-01-01").add(days, 'd');
 }
 </script>
+</div>
   </body>
 </html>
