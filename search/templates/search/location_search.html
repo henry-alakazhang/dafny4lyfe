@@ -122,10 +122,11 @@ function initMap() {
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng();
     var dist = document.getElementById('dist').value;
-    var minDate = getDate();
+    var minDate = getMinDate();
+    var maxDate = getMaxDate();
     var tags = document.getElementById('tags-input').value;
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
-                           '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate;
+                           '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
   });
 }
 
@@ -149,9 +150,13 @@ function testCallback(responseText) {
   alert(responseText);
 }
 
-function getDate() {   
-    var date = moment("1850-01-01").add($(document.getElementById("sliderObj")).val(), 'd').format("YYYY-MM-DD");
-    //console.log(date);
+function getMinDate() {   
+    var date = moment($("#min").text(),"DD MMM YYYY").format("YYYY-MM-DD");
+    return date;
+}
+
+function getMaxDate() {   
+    var date = moment($("#max").text(),"DD MMM YYYY").format("YYYY-MM-DD");
     return date;
 }
 
@@ -169,18 +174,17 @@ function getDate() {
          
     <script type="text/javascript">
         var years = moment().year()-1850;
-        console.log("Making slider");
         $("#slider").slider({
             min: 0,
             max: years,
             step: 1,
-            values: [0, 90],
+            values: [0, years],
             range: true,
             slide: function(event, ui) {
                 var delay = function() {
                     var handleIndex = $(ui.handle).index();
                     var label = handleIndex == 3 ? '#min' : '#max';
-                    $(label).html(1850 + ui.value).position({
+                    $(label).html("01 Jan " + (1850 + ui.value)).position({
                         my: 'center bottom-15',
                         at: 'center top',
                         of: ui.handle,
@@ -193,13 +197,13 @@ function getDate() {
             }
         });        
                                     
-        $('#min').text(1850+$("#slider").slider("values",0)).position({
+        $('#min').text("01 Jan " + (1850+$("#slider").slider("values",0))).position({
             my: 'center bottom-15',
             at: 'center top',
             of: $(".ui-slider-handle")[0]
         });
         
-        $('#max').text(1850+$("#slider").slider("values",1)).position({
+        $('#max').text(moment().format('DD MMM YYYY')).position({
             my: 'center bottom-15',
             at: 'center top',
             of: $(".ui-slider-handle")[1]
