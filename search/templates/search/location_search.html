@@ -134,8 +134,9 @@ function initMap() {
   
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
   autocomplete.addListener('place_changed', function(){
-    newSpot = autocomplete.getPlace();
-    marker.setPosition(autocomplete.getPlace().geometry.location);
+    newSpot = autocomplete.getPlace().geometry.location;
+    marker.setPosition(newSpot);
+    map.setCenter(newSpot);
   });
 }
 
