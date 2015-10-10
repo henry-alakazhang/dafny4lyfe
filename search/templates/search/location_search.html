@@ -84,11 +84,11 @@
     </div>
   	<div id="bottom">
     <div id="floating-panel">
-        <form style="float:left">
+        <div style="float:left">
             <label>Within</label>
             <input id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()">
             <label>m of</label>
-        </form>
+        </div>
         <span id="text-span">
             <input id="autocomplete" style="width:100%" type="textbox">
         </span>
@@ -105,7 +105,8 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatlng,
-    zoom: 10
+    zoom: 10,
+    streetViewControl: false
   });
 
   marker = new google.maps.Marker({
@@ -117,9 +118,17 @@ function initMap() {
   
   circle = new google.maps.Circle({
     map: map,
+    editable: true,
+    draggable: false,
+    clickable: false,
     radius: parseInt(document.getElementById('dist').value),
     fillColour:'#AA0000'
   })
+  circle.addListener('radius_changed', function() {
+    document.getElementById('dist').value = Math.round(circle.radius);
+  });
+  // doesn't use 'center_changed' because it has a weird effect with marker drag
+  circle.addListener('dragend', updateAutocomplete);
   circle.bindTo('center', marker, 'position');
 
   map.addListener('click', function(e) {
