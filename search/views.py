@@ -36,6 +36,7 @@ def location_search_results(request):
    maxDate = datetime.date.today().isoformat() #not timezone aware
 
    urlList = []
+   i = 0
    for photo in flickr.walk(bbox=bounds, tags=tags, tag_mode='all',
                             min_taken_date=minDate, max_taken_date=maxDate,
                             sort='date-taken-desc', per_page='500',
@@ -49,6 +50,8 @@ def location_search_results(request):
                    '/' + photo.get('id'))
       urlList.append((photoUrl, originUrl, photo.get('title'), photo.get('datetaken')))
       print(photoUrl)
+      i += 1
+      print(i)
    
    context['urlList'] = urlList
    return render(request, 'search/location_search_results.html', context)
