@@ -106,6 +106,7 @@
 var map;
 var marker;
 var circle;
+var radiusMarker;
 
 function initMap() {
   var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
@@ -209,8 +210,9 @@ function getMaxDate() {
   return date;
 }
 
-function updateAutocomplete() {
+function updateAutocomplete() {gc = new google.maps.Geocoder();
   gc = new google.maps.Geocoder();
+  radiusMarker.setPosition(getRadiusPosition());
   gc.geocode({'location': marker.getPosition()}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       start = results[0].address_components[0].short_name;
