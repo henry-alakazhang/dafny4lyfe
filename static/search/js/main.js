@@ -97,12 +97,12 @@ function testCallback(responseText) {
 }
 
 function getMinDate() {   
-  var date = moment($("#min").text(),"DD MMM YYYY").format("YYYY-MM-DD");
+  var date = moment($("#minDate").datepicker("getDate")).format("YYYY-MM-DD");
   return date;
 }
 
 function getMaxDate() {   
-  var date = moment($("#max").text(),"DD MMM YYYY").format("YYYY-MM-DD");
+  var date = moment($("#maxDate").datepicker("getDate")).format("YYYY-MM-DD");
   return date;
 }
 
