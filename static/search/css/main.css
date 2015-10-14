@@ -5,7 +5,7 @@ html, body {
   padding: 0;
 }
 #top, #bottom {
-  position: fixed;
+  position:absolute;
   left: 0;
   right: 0;
 }
@@ -23,6 +23,11 @@ html, body {
 #bottom {
   bottom: 0;
   height: 90%;
+}
+
+#tag-section {
+  position: absolute;
+  left: 35%;
 }
 
 #map {
@@ -44,25 +49,14 @@ html, body {
   left: 10px;
   width: 40%;
   z-index: 10;
-  background-color: #fff;
-  padding: 3px;
-  border: 1px solid #999;
+  padding:4px 0px 2px 2px;
   font-family: 'Roboto','sans-serif';
-  line-height: 23px;
+  line-height: 25px;
   %padding-left: 10px;        
 }
+
 #text-span {
   display:block;
   overflow:hidden; 
-  padding-left:5px; 
-  padding-right:7px;
-}
-#search {
-  width:70%;
-  text-align:center;
-  border-color:#000000;
-  border-width:1px;
-}
-#tags-input {
-  border:hidden;
+  padding: 0px 7px 2px 5px;
 }
