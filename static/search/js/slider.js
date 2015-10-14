@@ -25,7 +25,7 @@ $("#slider").slider({
                 });
             }).delay(2000).fadeTo(1000,0,function() {
                 $(this).unbind('mouseover').datepicker("hide");
-            }).datepicker("setDate",moment(date).format("DD/MM/"+(1850+ui.value)).position({
+            }).datepicker("setDate",moment(date).format("DD/MM/"+(1850+ui.value))).position({
                 my: 'center bottom',
                 at: 'center bottom',
                 of: $(label)
