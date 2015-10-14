@@ -4,278 +4,50 @@
     {% load slider_tags %}
       {% load staticfiles %}
       <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
-      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
-      <link rel="stylesheet" type="text/css" href="{% static "search/css/slider.css" %}" />
-      
-    <style type="text/css">
-      html, body { 
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-	      #top,
-	#bottom {
-	    position: fixed;
-	    left: 0;
-	    right: 0;
-	}
-
-	#top {
-	    top: 0;
-	    height: 10%;
-	}
-	
-	#bottom {
-	    bottom: 0;
-	    height: 90%;
-	}
-	#top div {
-	   display: inline-block;
-	   vertical-align: middle;
-	}
-      #map {
-        height: 100%;
-      }
-      #slider {      
-         position: absolute;
-         bottom: 2.5%;
-         z-index: 5;
-         left: 12.5%;
-         padding: 5px;  
-         width: 75%;
-      }
-      #floating-panel {
-      	position:absolute;
-        top: 9px;
-        left: 10px;
-        width: 40%;
-        z-index: 10;
-        background-color: #fff;
-        padding: 3px;
-        border: 1px solid #999;
-        font-family: 'Roboto','sans-serif';
-        line-height: 23px;
-        %padding-left: 10px;        
-      }
-      #text-span {
-        display:block;
-        overflow:hidden; 
-        padding-left:5px; 
-        padding-right:7px;
-      }
-      #search {
-        width:70%;
-        text-align:center;
-        border-color:#000000;
-        border-width:1px;
-      }
-      #tags-input {
-        border:hidden;
-      }
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
+      <link rel="stylesheet" type="text/css" href='{% static "search/css/slider.css" %}' />
+      <link rel="stylesheet" type="text/css" href='{% static "search/css/main.css" %}'/>      
+      <script type="text/javascript" src='{% static "search/js/main.js" %}'></script>
+      <script async defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
+      </script>
     </style>
   </head>
   <body>
     <div id="top">      
-        <div style="width:15%;height:100%" id="logo">
-            <p>Moments</p>
-        </div><!--    
-        --><div id="search">
-            <div id="set-tags"></div>
-            <input id="tags-input" type="textbox" placeholder="Insert tags">
-        </div><!--
-        --><div style="width:15%" id="submit">
-            <input type="button" value="Search">
-        </div>
+      <div style="width:15%;height:100%" id="logo">
+        <img src="{% static "logo.png" %}" width=200px/>
+      </div><!--    
+      -->
+      <div id="search">
+        <div id="set-tags"></div>
+        <input id="tags-input" type="textbox" placeholder="Insert tags">
+      </div><!--
+      -->
+      <div style="width:15%" id="submit">
+        <input type="button" value="Search">
+      </div>
     </div>
   	<div id="bottom">
-    <div id="floating-panel">
+      <div id="floating-panel">
         <div style="float:left">
-            <label>Within</label>
-            <input id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()">
-            <label>m of</label>
+          <label>Within</label>
+          <input id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()">
+          <label>m of</label>
         </div>
         <span id="text-span">
-            <input id="autocomplete" style="width:100%" type="textbox">
+          <input id="autocomplete" style="width:100%" type="textbox">
         </span>
+      </div>
+      <div id="map"></div>
     </div>
-    <div id="map"></div>
-    <script type="text/javascript">
-
-var map;
-var marker;
-var circle;
-var radiusMarker;
-
-function initMap() {
-  var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatlng,
-    zoom: 10,
-    streetViewControl: false
-  });
-
-  marker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    draggable: true
-  });
-  marker.addListener('dragend', updateAutocomplete);
-  
-  circle = new google.maps.Circle({
-    map: map,
-    clickable: false,
-    radius: parseInt(document.getElementById('dist').value),
-    fillColour:'#AA0000'
-  })
-  circle.addListener('radius_changed', function() {
-    document.getElementById('dist').value = Math.round(circle.radius);
-  });
-  circle.bindTo('center', marker, 'position');
-  
-  radiusMarker = new google.maps.Marker({
-    position: getRadiusPosition(),
-    map: map,
-    draggable: true
-  });
-  radiusMarker.addListener('drag', function() {
-    circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
-  });
-  marker.addListener('drag', function() {
-    radiusMarker.setPosition(getRadiusPosition());
-  });
-  
-  map.addListener('click', function(e) {
-    var lat = e.latLng.lat();
-    var lng = e.latLng.lng();
-    marker.setPosition({lat: lat, lng: lng})
-    updateAutocomplete();
-//    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
-  });
-
-  document.getElementById('submit').addEventListener('click', function() {
-    var lat = marker.getPosition().lat();
-    var lng = marker.getPosition().lng();
-    var dist = document.getElementById('dist').value;
-    var minDate = getMinDate();
-    var maxDate = getMaxDate();
-    var tags = document.getElementById('tags-input').value;
-    window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
-                           '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
-  });
-  
-  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
-  autocomplete.addListener('place_changed', function(){
-    newSpot = autocomplete.getPlace().geometry.location;
-    marker.setPosition(newSpot);
-    map.setCenter(newSpot);
-  });
-}
-
-function updateRadius() {
-  var rad = parseInt(document.getElementById('dist').value);
-  circle.setRadius(rad);
-}
-
-function getRadiusPosition(){
-  bounds = circle.getBounds();
-  return {lat: bounds.getNorthEast().lat()/2 + bounds.getSouthWest().lat()/2,
-          lng: bounds.getNorthEast().lng()};
-}
-
-function httpGetAsync(url, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-        callback(xmlHttp.responseText);
-      }
-    }
-    xmlHttp.open("GET", url, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
-function testCallback(responseText) {
-  alert(responseText);
-}
-
-function getMinDate() {   
-  var date = moment($("#min").text(),"DD MMM YYYY").format("YYYY-MM-DD");
-  return date;
-}
-
-function getMaxDate() {   
-  var date = moment($("#max").text(),"DD MMM YYYY").format("YYYY-MM-DD");
-  return date;
-}
-
-function updateAutocomplete() {gc = new google.maps.Geocoder();
-  gc = new google.maps.Geocoder();
-  radiusMarker.setPosition(getRadiusPosition());
-  gc.geocode({'location': marker.getPosition()}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      start = results[0].address_components[0].short_name;
-      if (results.length > 1 && (/\d$/.test(start) || /^\d/.test(start))) {
-        document.getElementById('autocomplete').value = results[1].formatted_address;
-      } else {
-        document.getElementById('autocomplete').value = results[0].formatted_address;
-      }
-    } else {
-      document.getElementById('autocomplete').value = "";
-    }
-  });
-}
-
-    </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
-    </script>
-    </div>
-  
-
     <div id="slider">
       <output id="min"></output>
       <output id="max"></output>
     </div>
-         
-    <script type="text/javascript">
-        var years = moment().year()-1850;
-        $("#slider").slider({
-            min: 0,
-            max: years,
-            step: 1,
-            values: [0, years],
-            range: true,
-            slide: function(event, ui) {
-                var delay = function() {
-                    var handleIndex = $(ui.handle).index();
-                    var label = handleIndex == 3 ? '#min' : '#max';
-                    $(label).html("01 Jan " + (1850 + ui.value)).position({
-                        my: 'center bottom-15',
-                        at: 'center top',
-                        of: ui.handle,
-                        offset: "0, 10"
-                    });
-                };
-                
-                // wait for the ui.handle to set its position
-                setTimeout(delay, 5);
-            }
-        });        
-                                    
-        $('#min').text("01 Jan " + (1850+$("#slider").slider("values",0))).position({
-            my: 'center bottom-15',
-            at: 'center top',
-            of: $(".ui-slider-handle")[0]
-        });
-        
-        $('#max').text(moment().format('DD MMM YYYY')).position({
-            my: 'center bottom-15',
-            at: 'center top',
-            of: $(".ui-slider-handle")[1]
-        });
+    <script type="text/javascript" src='{% static "search/js/slider.js" %}'>
     </script>
-    
   </body>
 </html>
