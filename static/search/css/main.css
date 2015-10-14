@@ -1,0 +1,68 @@
+
+html, body { 
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#top, #bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+#top {
+  top: 0;
+  height: 10%;
+}
+
+#top div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#bottom {
+  bottom: 0;
+  height: 90%;
+}
+
+#map {
+  height: 100%;
+}
+
+#slider {      
+  position: absolute;
+  bottom: 2.5%;
+  z-index: 5;
+  left: 12.5%;
+  padding: 5px;  
+  width: 75%;
+}
+
+#floating-panel {
+  position:absolute;
+  top: 9px;
+  left: 10px;
+  width: 40%;
+  z-index: 10;
+  background-color: #fff;
+  padding: 3px;
+  border: 1px solid #999;
+  font-family: 'Roboto','sans-serif';
+  line-height: 23px;
+  %padding-left: 10px;        
+}
+#text-span {
+  display:block;
+  overflow:hidden; 
+  padding-left:5px; 
+  padding-right:7px;
+}
+#search {
+  width:70%;
+  text-align:center;
+  border-color:#000000;
+  border-width:1px;
+}
+#tags-input {
+  border:hidden;
+}
