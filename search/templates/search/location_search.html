@@ -21,12 +21,12 @@
         <img src="{% static "logo.png" %}" width=200px/>
       </div><!--    
       -->
-      <div id="search">
+      <div style="width:auto" id="search">
         <div id="set-tags"></div>
         <input id="tags-input" type="textbox" placeholder="Insert tags">
       </div><!--
       -->
-      <div style="width:15%" id="submit">
+      <div style="width:15%;right:100%" id="submit">
         <input type="button" value="Search">
       </div>
     </div>
@@ -43,10 +43,11 @@
       </div>
       <div id="map"></div>
     </div>
-    <div id="slider">
-      <output id="min"></output>
-      <output id="max"></output>
-    </div>
+    <div id="slider"></div>     
+        <output id="min"></output>
+        <div id="minDate" style="display: inline-block"></div>
+        <output id="max"></output>
+        <div id="maxDate" style="display: inline-block"></div>
     <script type="text/javascript" src='{% static "search/js/slider.js" %}'>
     </script>
   </body>
