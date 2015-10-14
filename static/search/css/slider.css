@@ -114,6 +114,7 @@ output {
   left: 0;
   margin-left: -1%;
 }
+
 output:after { 
   content: "";
   position: absolute;
@@ -126,4 +127,8 @@ output:after {
   left: 50%;
   margin-left: -5px;
   margin-top: -1px;
+}
+
+div.ui-datepicker{
+ font-size:10px;
 }
