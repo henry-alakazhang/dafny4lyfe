@@ -21,7 +21,8 @@ def location_search(request):
 
 def location_search_results(request):
    context = {}
-
+   #comment out below for testing javascript implementation
+   '''
    # location info
    lat = float(request.GET.get('lat', ''))
    lng = float(request.GET.get('lng', ''))
@@ -53,7 +54,7 @@ def location_search_results(request):
       i += 1
       print(i)
    
-   context['urlList'] = urlList
+   context['urlList'] = urlList'''
    return render(request, 'search/location_search_results.html', context)
 
 # given coordinates and distance in metres, returns bounds as a string
