@@ -9,6 +9,8 @@
       <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
       <link rel="stylesheet" type="text/css" href='{% static "search/css/slider.css" %}' />
       <link rel="stylesheet" type="text/css" href='{% static "search/css/main.css" %}'/>      
+      <link rel="stylesheet" href='{% static "search/css/bootstrap.css"%}' />
+      <script type="text/javascript" src='{% static "search/js/bootstrap.js" %}'></script>
       <script type="text/javascript" src='{% static "search/js/main.js" %}'></script>
       <script async defer
         src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
@@ -16,38 +18,41 @@
     </style>
   </head>
   <body>
-    <div id="top">      
-      <div style="width:15%;height:100%" id="logo">
-        <img src="{% static "logo.png" %}" width=200px/>
-      </div><!--    
-      -->
-      <div style="width:auto" id="search">
-        <div id="set-tags"></div>
-        <input id="tags-input" type="textbox" placeholder="Insert tags">
-      </div><!--
-      -->
-      <div style="width:15%;right:100%" id="submit">
-        <input type="button" value="Search">
-      </div>
+    <div id="top">    
+      <nav class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <div class="navbar-brand" href="#">Moments</a>
+        </div>
+        <div id="tag-section" class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" id="tags-input" class="form-control" placeholder="Search for tags">
+          </div>
+          <button id="submit" class="btn btn-default">Search</button>
+        </div>
+      </nav>
     </div>
   	<div id="bottom">
-      <div id="floating-panel">
-        <div style="float:left">
-          <label>Within</label>
-          <input id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()">
-          <label>m of</label>
-        </div>
-        <span id="text-span">
-          <input id="autocomplete" style="width:100%" type="textbox">
-        </span>
-      </div>
+      <div class="well" id="floating-panel">
+        <div class="form-inline">
+          <div style="float:left">
+            Within 
+            <input class="form-control" id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()"> 
+            m of &nbsp;
+          </div>
+          <span id="text-span">
+            <input class="form-control" id="autocomplete" style="width:100%" type="textbox">
+          </span>
+          </div>
+        </div> <!-- .form-inline -->
       <div id="map"></div>
     </div>
-    <div id="slider"></div>     
-        <output id="min"></output>
-        <div id="minDate" style="display: inline-block"></div>
-        <output id="max"></output>
-        <div id="maxDate" style="display: inline-block"></div>
+    <div id="slider">  </div>
+      <output id="min"></output>
+      <div id="minDate" style="display: inline-block"></div>
+      <output id="max"></output>
+      <div id="maxDate" style="display: inline-block"></div>
+    
     <script type="text/javascript" src='{% static "search/js/slider.js" %}'>
     </script>
   </body>

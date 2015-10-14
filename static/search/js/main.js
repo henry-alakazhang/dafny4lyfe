@@ -28,6 +28,7 @@ function initMap() {
   })
   circle.addListener('radius_changed', function() {
     document.getElementById('dist').value = Math.round(circle.radius);
+    radiusMarker.setPosition(getRadiusPosition());
   });
   circle.bindTo('center', marker, 'position');
   
