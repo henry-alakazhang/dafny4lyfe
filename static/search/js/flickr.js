@@ -31,18 +31,30 @@ jQuery(function() {
       sort: 'date-taken-desc',
       extras: 'date_taken',
       format: 'json',
-      per_page: '200'
+      per_page: '200',
+      page: '1'
     }
 
-    jQuery.getJSON(baseUrl, flickrOptions, function(data) {
-      jQuery.each(data.photos.photo, function(index, item) {
-        var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + 
-                       item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
-        console.log(photoURL);
-        var imgCont = "<figure> <img src='" + photoURL + "'></figure>";
-        jQuery(imgCont).appendTo('#image-container');
+    var unfinished = true;
+    var page = 1;
+//    while (unfinished) {
+      jQuery.getJSON(baseUrl, flickrOptions, function(data) {
+/*        if (data.photos.photo.length == 0) {
+          unfinished = false;
+        }*/
+        jQuery.each(data.photos.photo, function(index, item) {
+          var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + 
+                         item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
+          console.log(photoURL);
+          var imgCont = "<figure> <img src='" + photoURL + "'></figure>";
+          jQuery(imgCont).appendTo('#image-container');
+        });
+        alert('hello');
       });
-    });
+//      page++;
+//      flickrOptions['page'] = page;
+//    }
+
 
 /*    "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
               "&api_key=" + apiKey +"&tags=" + tags + "&min_taken_date=" + minDate + 
