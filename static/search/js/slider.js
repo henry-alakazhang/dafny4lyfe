@@ -1,6 +1,6 @@
-var years = moment().year()-1970;
+var years = moment().year();
 $("#slider").slider({
-    min: 0,
+    min: 1970,
     max: years,
     step: 1,
     values: [0, years],
@@ -12,7 +12,7 @@ $("#slider").slider({
             console.log(handleIndex);
             var timePicker = label == '#min' ? '#minDate' : '#maxDate';
             var date = $(timePicker).datepicker("getDate");
-            $(label).html(moment(date).format("DD MMM ") + (1970 + ui.value)).position({
+            $(label).html(moment(date).format("DD MMM ") + ui.value).position({
                 my: 'center bottom-15',
                 at: 'center top',
                 of: ui.handle,
@@ -25,7 +25,7 @@ $("#slider").slider({
                 });
             }).delay(2000).fadeTo(1000,0,function() {
                 $(this).unbind('mouseover').datepicker("hide");
-            }).datepicker("setDate",moment(date).format("DD/MM/"+(1850+ui.value))).position({
+            }).datepicker("setDate",moment(date).format("DD/MM/"+ui.value)).position({
                 my: 'center bottom',
                 at: 'center bottom',
                 of: $(label)
@@ -74,7 +74,7 @@ $('#maxDate').datepicker({
     }).delay(2000).fadeTo(1000,0,function() {
            $(this).unbind('mouseover').datepicker("hide");
        });                           
-$('#min').text("01 Jan " + (1970+$("#slider").slider("values",0))).position({
+$('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
     my: 'center bottom-15',
     at: 'center top',
     of: $(".ui-slider-handle")[0]
