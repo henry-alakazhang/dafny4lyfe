@@ -9,7 +9,7 @@ $("#slider").slider({
         var delay = function() {
             var handleIndex = $(ui.handle).index();
             var label = handleIndex == 1 ? '#min' : '#max';
-            console.log(handleIndex);
+            //console.log(handleIndex);
             var timePicker = label == '#min' ? '#minDate' : '#maxDate';
             var date = $(timePicker).datepicker("getDate");
             $(label).html(moment(date).format("DD MMM ") + ui.value).position({
@@ -36,7 +36,30 @@ $("#slider").slider({
         setTimeout(delay, 5);
     }
 });        
- 
+
+var hand0 = $(".ui-slider-handle")[0];
+var hand1 = $(".ui-slider-handle")[1];      
+     
+$(hand0).on("click",function() {
+console.log("CLICK 0");
+    $('#minDate').stop(true,true).fadeTo(100,1).mouseover(function() {
+        //console.log("Mouse over");        
+       $(this).stop(true,true).fadeTo(100,1); 
+    }).delay(2000).fadeTo(1000,0,function() {
+           $(this).unbind('mouseover').datepicker("hide");
+       });
+});
+
+$(hand1).click(function() {
+console.log("CLICK 1");
+    $('#maxDate').stop(true,true).fadeTo(100,1).mouseover(function() {
+        //console.log("Mouse over");        
+       $(this).stop(true,true).fadeTo(100,1); 
+    }).delay(2000).fadeTo(1000,0,function() {
+           $(this).unbind('mouseover').datepicker("hide");
+       });
+});
+
 $('#minDate').datepicker({
     changeMonth: true,
 }).datepicker("setDate","1/1/1970").position({
@@ -73,17 +96,16 @@ $('#maxDate').datepicker({
        }); 
     }).delay(2000).fadeTo(1000,0,function() {
            $(this).unbind('mouseover').datepicker("hide");
-       });                           
+       });      
+                
 $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
     my: 'center bottom-15',
     at: 'center top',
-    of: $(".ui-slider-handle")[0]
+    of: hand0
 });
 
 $('#max').text(moment().format('DD MMM YYYY')).position({
     my: 'center bottom-15',
     at: 'center top',
-    of: $(".ui-slider-handle")[1]
+    of: hand1
 });
-
-
