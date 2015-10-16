@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 #top, #bottom {
   position:fixed;
   left: 0;
@@ -15,7 +16,7 @@ html, body {
   height:10%;
 }
 
-#top div {
+#top div, input, button {
   display: inline-block;
   vertical-align: middle;
 }

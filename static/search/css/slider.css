@@ -132,3 +132,5 @@ output:after {
 div.ui-datepicker{
  font-size:10px;
 }
+
+.ui-datepicker{ z-index: 9999 !important;}
