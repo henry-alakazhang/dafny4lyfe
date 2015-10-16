@@ -16,7 +16,7 @@ jQuery(function() {
     return(false);
   }
 
-  function search() {
+  function flickrMain() {
     var baseUrl = 'https://api.flickr.com/services/rest/?jsoncallback=?';
     var flickrOptions = {
       method: 'flickr.photos.search',
@@ -35,36 +35,33 @@ jQuery(function() {
       page: '1'
     }
 
-    var unfinished = true;
-    var page = 1;
-//    while (unfinished) {
+    var count = 0;
+    search();
+
+    function search() {
       jQuery.getJSON(baseUrl, flickrOptions, function(data) {
-/*        if (data.photos.photo.length == 0) {
-          unfinished = false;
-        }*/
-        jQuery.each(data.photos.photo, function(index, item) {
-          var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + 
-                         item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
-          console.log(photoURL);
-          var imgCont = "<figure> <img src='" + photoURL + "'></figure>";
-          jQuery(imgCont).appendTo('#image-container');
-        });
-        alert('hello');
+        console.log(data.photos.photo.length);
+        if (data.photos.photo.length == 0 && flickrOptions['page'] == 1) {
+          // display no photos
+        } else {
+          jQuery.each(data.photos.photo, function(index, item) {
+            var photoURL = 'http://farm' + item.farm + '.static.flickr.com/' + 
+                           item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
+            console.log(photoURL);
+            var imgCont = "<figure> <img src='" + photoURL + "'></figure>";
+            jQuery(imgCont).appendTo('#image-container');
+
+            if (++count == data.photos.photo.length) {
+              flickrOptions['page']++;
+              count = 0;
+              search();
+            }
+          });
+        }
       });
-//      page++;
-//      flickrOptions['page'] = page;
-//    }
-
-
-/*    "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
-              "&api_key=" + apiKey +"&tags=" + tags + "&min_taken_date=" + minDate + 
-              "&max_taken_date=" + maxDate + "&lat=" + lat + "&lon=" + lng +
-              "&radius=" + radius + "&tag_mode=all&sort=date-taken-desc&extras=date_taken" +
-              "&per_page=200";
-*/
-
+    }
   }
 
-  search();
-//  $.getJSON('
+  flickrMain();
+
 });
