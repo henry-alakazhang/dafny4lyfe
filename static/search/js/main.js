@@ -58,7 +58,12 @@ function initMap() {
     var dist = document.getElementById('dist').value;
     var minDate = getMinDate();
     var maxDate = getMaxDate();
-    var tags = document.getElementById('tags-input').value;
+    var tags = "";
+    var tagBoxes = document.getElementsByClassName('token-label');
+    for(var i = 0; i < tagBoxes.length; i++)
+    {
+        tags += tagBoxes[i].innerHTML + ",";
+    }
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
                            '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
   });

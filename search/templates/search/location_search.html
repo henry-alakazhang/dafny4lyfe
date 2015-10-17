@@ -24,7 +24,7 @@
         </div>
         <div id="tag-section" class="navbar-form navbar-left">
           Show me: 
-          <div id="tag-box" data-toggle="tooltip" title="Type a tag, then press enter">
+          <div id="tag-box" data-toggle="tooltip" title="Type a tag, then press enter" data-placement="left">
             <input type="text" id="tags-input" placeholder=""></input>
           </div>
           <button id="submit" class="btn btn-default">Search</button>
@@ -36,7 +36,7 @@
         <div class="form-inline">
           <div style="float:left">
             Within 
-            <input class="form-control" id="dist" type="textbox" value="10000" size="6" onchange="updateRadius()"> 
+            <input class="form-control" id="dist" type="textbox" value="10000" size="5" onchange="updateRadius()"> 
             m of &nbsp;
           </div>
           <span id="text-span">
@@ -57,6 +57,6 @@
     <script type="text/javascript" src='{% static "search/js/slider.js" %}'></script>
     <script type="text/javascript" src='{% static "search/tokenfield/bootstrap-tokenfield.js" %}'></script>
     <script type="text/javascript">$('#tags-input').tokenfield();
-    $('#tag-box').tooltip()</script>
+    $('#tag-box').tooltip();</script>
   </body>
 </html>

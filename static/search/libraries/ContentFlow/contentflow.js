@@ -8,7 +8,7 @@
  *--------------------------------------------------------------------------*/
 /* 
  * ============================================================
- * Global configutaion and initilization object
+ * Global configutaion and initilization object 
  * ============================================================
  */
 var ContentFlowGlobal = {
