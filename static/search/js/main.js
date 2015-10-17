@@ -16,7 +16,7 @@ function initMap() {
   marker = new google.maps.Marker({
     position: myLatlng,
     map: map,
-    draggable: true
+    draggable: true,
   });
   marker.addListener('dragend', updateAutocomplete);
   
@@ -30,12 +30,17 @@ function initMap() {
     document.getElementById('dist').value = Math.round(circle.radius);
     radiusMarker.setPosition(getRadiusPosition());
   });
+  circle.addListener('center_changed', function() {
+    if (radiusMarker) {
+      radiusMarker.setPosition(getRadiusPosition()); 
+    }
+  });
   circle.bindTo('center', marker, 'position');
   
   radiusMarker = new google.maps.Marker({
     position: getRadiusPosition(),
     map: map,
-    draggable: true
+    draggable: true,
   });
   radiusMarker.addListener('drag', function() {
     circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
