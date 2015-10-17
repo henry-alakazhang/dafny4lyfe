@@ -2,14 +2,29 @@
 <html>
 <head>
   {% load staticfiles %}
+  <!-- Javascript files -->
+
   <!-- JQuery (Google CDN) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- ContentFlow --> 
+  <script src='{% static "search/libraries/ContentFlow/contentflow.js" %}'></script>
   <!-- Flickr search and loading -->
   <script src='{% static "search/js/flickr.js" %}'></script>
+
+  <!-- CSS files -->
+  <link rel="stylesheet" type="text/css" href='{% static "search/libraries/ContentFlow/contentflow.css" %}'
+
 </head>
 
 <body>
-  <div id="image-container">
+  <div class="ContentFlow" id="ajax_cf">
+    <div class="loadIndicator"><div class="indicator"></div></div>
+    <div class="flow">
+<!--      <img class="item" src="someImageFile.jpg" title="Your_Image_Title"/> -->
+      <!-- Add as many items as you like. -->
+    </div>
+    <div class="globalCaption"></div>
+    <div class="scrollbar"><div class="slider"><div class="position"></div></div></div>
   </div>
   <!--
   <h1>Search by location</h1>
