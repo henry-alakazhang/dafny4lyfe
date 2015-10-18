@@ -55,7 +55,7 @@ function initMap() {
     console.log("click!");
 //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
   });
-
+  
   document.getElementById('submit').addEventListener('click', function() {
     var lat = marker.getPosition().lat();
     var lng = marker.getPosition().lng();
@@ -68,8 +68,7 @@ function initMap() {
     {
         tags += tagBoxes[i].innerHTML + ",";
     }
-    window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
-                           '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
+    flickrMain(tags, lat, lng, dist);
   });
   
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
