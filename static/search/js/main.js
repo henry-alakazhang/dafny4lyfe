@@ -41,6 +41,7 @@ function initMap() {
     position: getRadiusPosition(),
     map: map,
     draggable: true,
+    icon: document.getElementById('iconid').innerHTML
   });
   radiusMarker.addListener('drag', function() {
     circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
