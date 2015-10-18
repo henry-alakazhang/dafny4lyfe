@@ -46,15 +46,13 @@ function initMap() {
   radiusMarker.addListener('drag', function() {
     circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
   });
-  marker.addListener('drag', function() {
-    radiusMarker.setPosition(getRadiusPosition());
-  });
   
   map.addListener('click', function(e) {
     var lat = e.latLng.lat();
     var lng = e.latLng.lng();
     marker.setPosition({lat: lat, lng: lng})
     updateAutocomplete();
+    console.log("click!");
 //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
   });
 
@@ -84,7 +82,9 @@ function initMap() {
 
 function updateRadius() {
   var rad = parseInt(document.getElementById('dist').value);
-  circle.setRadius(rad);
+  if (!isNaN(rad)) {
+    circle.setRadius(rad);
+  }
 }
 
 function getRadiusPosition(){
