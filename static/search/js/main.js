@@ -84,6 +84,8 @@ function updateRadius() {
   var rad = parseInt(document.getElementById('dist').value);
   if (!isNaN(rad)) {
     circle.setRadius(rad);
+  } else {
+    document.getElementById('dist').value = Math.round(circle.getRadius());
   }
 }
 
