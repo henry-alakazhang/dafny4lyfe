@@ -4,19 +4,6 @@ jQuery(function() {
   // ContentFlow for images
   var ajax_cf = new ContentFlow('ajax_cf');
 
-  // returns the value of the specified query parameter
-  function getQueryVar(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
-      if (pair[0] == variable){
-        return pair[1];
-      }
-    }
-    return(false);
-  }
-
   function flickrMain() {
     var baseUrl = 'https://api.flickr.com/services/rest/?jsoncallback=?';
     var flickrOptions = {
@@ -79,3 +66,17 @@ jQuery(function() {
   flickrMain();
 
 });
+
+
+// returns the value of the specified query parameter
+function getQueryVar(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable){
+      return pair[1];
+    }
+  }
+  return(false);
+}
