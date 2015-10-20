@@ -25,7 +25,7 @@
         </div>
         <div id="tag-section" class="navbar-form navbar-left">
           Show me &nbsp;
-          <input checked type="checkbox" data-toggle="toggle" id="any-toggle">
+          <input checked type="checkbox" data-toggle="toggle" data-on="Any" data-off="All" id="any-toggle">
           of
           <div id="tag-box" data-toggle="tooltip" title="Type a tag, then press enter" data-placement="left">
             <input type="text" id="tags-input" value=""></input>
@@ -62,10 +62,6 @@
     <script type="text/javascript" src='{% static "search/libraries/bootstrap-toggle/js/bootstrap-toggle.min.js" %}'></script>
     <script type="text/javascript">$('#tags-input').tokenfield();
       $('#tag-box').tooltip();
-      $('#any-toggle').bootstrapToggle({
-        on: 'Any',
-        off: 'All'
-      });
     </script>
     <div hidden="true" id="iconid">{% static "/static/search/marker.png" %}
   </body>

@@ -29,7 +29,7 @@
     </div>
     <div id="tag-section" class="navbar-form navbar-left">
       Showing: 
-      <input disabled type="checkbox" data-toggle="toggle" id="any-toggle">
+      <input disabled type="checkbox" data-toggle="toggle" data-on="Any" data-off="All" id="any-toggle">
       of
       <div id="tag-box" data-placement="left">
         <input disabled type="text" id="tags-input" placeholder=""></input>
@@ -55,10 +55,6 @@
       document.getElementById('tags-input').value = getQueryVar('tags');
       document.getElementById('any-toggle').checked = (getQueryVar('tag_mode') == 'any');
       $('#tags-input').tokenfield();
-      $('#any-toggle').bootstrapToggle({
-        on: 'Any',
-        off: 'All'
-      });
       $('.fancybox').fancybox({
         mousewheel : true,
         loop : false,
