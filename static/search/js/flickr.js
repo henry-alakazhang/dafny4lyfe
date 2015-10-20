@@ -26,6 +26,7 @@ jQuery(function() {
     }
     if (getQueryVar('tags') != '') {
       flickrOptions.tags = getQueryVar('tags');
+      flickrOptions.tag_mode = getQueryVar('tag_mode');
     }
 
     var count = 0;
@@ -35,6 +36,7 @@ jQuery(function() {
       // Performs request using API (REST method) to flickr
       jQuery.getJSON(baseUrl, flickrOptions, function(data) {
         if (data.photos.photo.length == 0 && flickrOptions['page'] == 1) {
+          document.getElementById('ajax_cf').innerHTML = '<center style="color:#FFFFFF">No images found. <p>Try different search criteria.</p></center>';
           // display no photos and do stuff to show no that there are no results
         } else {
           // create the DOM element for the contentflow
@@ -90,8 +92,4 @@ function getQueryVar(variable) {
     }
   }
   return(false);
-}
-
-function moveCF(to) {
-  ajax_cf.moveTo(to);
 }

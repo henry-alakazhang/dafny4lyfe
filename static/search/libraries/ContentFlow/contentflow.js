@@ -613,7 +613,7 @@ ContentFlowItem.prototype = {
                     var red = CFobj._reflectionColorRGB.iR;
                     var green = CFobj._reflectionColorRGB.iG;
                     var blue = CFobj._reflectionColorRGB.iB;
-                    if (CFobj._reflectionWithinImage) {
+                    if (CFobj._reflectionWithinImage && canvas.height > 0) {
                         gradient.addColorStop(0, 'rgba('+red+','+green+','+blue+','+alpha[0]+')');
                         gradient.addColorStop(height/canvas.height, 'rgba('+red+','+green+','+blue+','+alpha[0]+')');
                         gradient.addColorStop(height/canvas.height, 'rgba('+red+','+green+','+blue+','+alpha[1]+')');

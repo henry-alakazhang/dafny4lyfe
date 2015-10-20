@@ -73,6 +73,7 @@ function initMap() {
     var dist = document.getElementById('dist').value;
     var minDate = getMinDate();
     var maxDate = getMaxDate();
+    var tag_mode = document.getElementById('any-radio').checked ? 'any' : 'all';
     var tags = "";
     var tagBoxes = document.getElementsByClassName('token-label');
     for(var i = 0; i < tagBoxes.length; i++)
@@ -80,7 +81,8 @@ function initMap() {
         tags += tagBoxes[i].innerHTML + ",";
     }
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
-                           '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
+                           '&dist=' + dist + '&tags=' + tags + '&tag_mode=' + tag_mode +
+                           '&min_date=' + minDate +'&max_date=' + maxDate;
   });
   
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
