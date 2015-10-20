@@ -41,19 +41,30 @@ function initMap() {
     position: getRadiusPosition(),
     map: map,
     draggable: true,
-    icon: document.getElementById('iconid').innerHTML
+    icon: document.getElementById('iconid').innerHTML,
+    clickable: false,
   });
   radiusMarker.addListener('drag', function() {
     circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
   });
   
+  /* hack used to prevent the marker drag ending in a 'click' event */
+  radiusMarker.addListener('dragstart', function() {
+    radiusMarker.setClickable(true);
+  });
+  radiusMarker.addListener('dragend', function() {
+    radiusMarker.setClickable(false);
+  });
+  
   map.addListener('click', function(e) {
-    var lat = e.latLng.lat();
-    var lng = e.latLng.lng();
-    marker.setPosition({lat: lat, lng: lng})
-    updateAutocomplete();
-    console.log("click!");
-//    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
+    if (!radiusMarker.getClickable()) { // hek
+      var lat = e.latLng.lat();
+      var lng = e.latLng.lng();
+      marker.setPosition({lat: lat, lng: lng})
+      updateAutocomplete();
+      console.log("click!");
+  //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
+    }
   });
 
   document.getElementById('submit').addEventListener('click', function() {
