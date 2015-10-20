@@ -112,7 +112,14 @@ output {
   font: bold 12px/24px Georgia;
   bottom: 175%;
   left: 0;
+  box-shadow: inset 0px 0px 2px #000000;  
   margin-left: -1%;
+  z-index: 8888
+}
+
+output:hover {
+    box-shadow: inset 0px 0px 2.5px 1px #333333;  
+    color: grey;    
 }
 
 output:after { 
@@ -129,6 +136,9 @@ output:after {
   margin-top: -1px;
 }
 
+#minDate, #maxDate {
+    z-index:10
+}
 div.ui-datepicker{
  font-size:10px;
 }
