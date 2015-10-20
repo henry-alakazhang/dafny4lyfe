@@ -10,6 +10,7 @@
       <link rel="stylesheet" href='{% static "search/css/slider.css" %}' />
       <link rel="stylesheet" href='{% static "search/css/bootstrap.css"%}'/>
       <link rel="stylesheet" href='{% static "search/tokenfield/css/bootstrap-tokenfield.css"%}'/>
+      <link rel="stylesheet" href='{% static "search/libraries/bootstrap-toggle/css/bootstrap-toggle.min.css" %}'/>
       <link rel="stylesheet" href='{% static "search/css/main.css" %}'/>
       <script async defer
         src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
@@ -24,8 +25,8 @@
         </div>
         <div id="tag-section" class="navbar-form navbar-left">
           Show me &nbsp;
-          <input type="radio" class="radio-inline" name="anyallradio" id="any-radio" checked="checked"/> Any
-          <input type="radio" class="radio-inline" name="anyallradio" id="all-radio"/> All of:
+          <input checked type="checkbox" data-toggle="toggle" id="any-toggle">
+          of
           <div id="tag-box" data-toggle="tooltip" title="Type a tag, then press enter" data-placement="left">
             <input type="text" id="tags-input" value=""></input>
           </div>
@@ -58,8 +59,14 @@
     <script type="text/javascript" src='{% static "search/js/bootstrap.js" %}'></script>
     <script type="text/javascript" src='{% static "search/js/slider.js" %}'></script>
     <script type="text/javascript" src='{% static "search/tokenfield/bootstrap-tokenfield.js" %}'></script>
+    <script type="text/javascript" src='{% static "search/libraries/bootstrap-toggle/js/bootstrap-toggle.min.js" %}'></script>
     <script type="text/javascript">$('#tags-input').tokenfield();
-    $('#tag-box').tooltip();</script>
+      $('#tag-box').tooltip();
+      $('#any-toggle').bootstrapToggle({
+        on: 'Any',
+        off: 'All'
+      });
+    </script>
     <div hidden="true" id="iconid">{% static "/static/search/marker.png" %}
   </body>
 </html>
