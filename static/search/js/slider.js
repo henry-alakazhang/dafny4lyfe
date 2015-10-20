@@ -14,7 +14,7 @@ $("#slider").slider({
             //console.log(ui.value);
             $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                 my: 'center bottom',
-                at: 'center top-15',
+                at: 'center top-' + (15 + $(label).height()*1.5),
                 of: ui.handle
             });
             
