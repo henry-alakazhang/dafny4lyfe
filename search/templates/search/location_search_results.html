@@ -49,7 +49,12 @@
       document.getElementById('tags-input').value = getQueryVar('tags');
       $('#tags-input').tokenfield();
       $('#tag-box').tooltip();
-      $('.fancybox').fancybox({ type: 'ajax',
+      $('.fancybox').fancybox({
+        mousewheel : true,
+        loop : false,
+        afterLoad : function() {
+          this.title = this.title + " <a href='"+ this.content + "'>Source</a>."
+        }
       });
     </script>
   </div>

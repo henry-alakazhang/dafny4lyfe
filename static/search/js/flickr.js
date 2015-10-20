@@ -44,21 +44,22 @@ jQuery(function() {
             var photoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
                            item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
             var largePhotoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
-                           item.server + '/' + item.id + '_' + item.secret + '_b.jpg';
-//            console.log(photoUrl);
+                           item.server + '/' + item.id + '_' + item.secret + '_c.jpg';
+            var photoSourceUrl = 'http://flickr.com/photos/' + item.owner + '/' + item.id;
             var boxDom = document.createElement("A");
             boxDom.setAttribute("class", "fancybox item");
             boxDom.setAttribute("rel", "gallery");
             boxDom.setAttribute("href", largePhotoUrl);
-            boxDom.setAttribute("title", item.title);
+            boxDom.setAttribute("title", item.title + " (" + item.datetaken + ")");
+            boxDom.setAttribute("content", photoSourceUrl);
             var imgDom = document.createElement("IMG");
             imgDom.setAttribute("class", "content");
+            imgDom.setAttribute("alt", item.title + " (" + item.datetaken + ")");
 
             imgDom.src = photoUrl;
             boxDom.appendChild(imgDom);
            
             ajax_cf.addItem(boxDom, 'last');
-            $('.fancybox').fancybox();
             
             // once all the items from current page have been returned
             // get items from next page
@@ -89,4 +90,8 @@ function getQueryVar(variable) {
     }
   }
   return(false);
+}
+
+function moveCF(to) {
+  ajax_cf.moveTo(to);
 }
