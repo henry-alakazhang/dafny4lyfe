@@ -2,25 +2,61 @@
 <html>
 <head>
   {% load staticfiles %}
+  <!-- Javascript files -->
+
   <!-- JQuery (Google CDN) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- ContentFlow --> 
+  <script src='{% static "search/libraries/ContentFlow/contentflow.js" %}'></script>
   <!-- Flickr search and loading -->
   <script src='{% static "search/js/flickr.js" %}'></script>
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href='{% static "search/css/bootstrap.css"%}'/>
+  <link rel="stylesheet" href='{% static "search/css/main.css" %}' />
+  <link rel="stylesheet" href='{% static "search/tokenfield/css/bootstrap-tokenfield.css"%}'/>
+  <link rel="stylesheet" href='{% static "search/libraries/ContentFlow/contentflow.css" %}'/>
+  <link rel="stylesheet" href='{% static "search/libraries/fancyBox/jquery.fancybox.css" %}'/>
+
 </head>
 
 <body>
-  <div id="image-container">
+  <nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/search/map">Moments</a>
+    </div>
+    <div id="tag-section" class="navbar-form navbar-left">
+      Showing: 
+      <div id="tag-box" data-toggle="tooltip" title="Type a tag, then press enter" data-placement="left">
+        <input type="text" id="tags-input" placeholder=""></input>
+      </div>
+      <button id="submit" class="btn btn-default">Search again</button>
+    </div>
+  </nav>
+  
+  <div class="ContentFlow" id="ajax_cf">
+    <div class="loadIndicator"><div class="indicator"></div></div>
+    <div class="flow">
+<!--      <img class="item" src="someImageFile.jpg" title="Your_Image_Title"/> -->
+      <!-- Add as many items as you like. -->
+    </div>
+    <div class="globalCaption"></div>
+    <div class="scrollbar"><div class="slider"><div class="position"></div></div></div>
+    <script type="text/javascript" src='{% static "search/js/bootstrap.js" %}'></script>
+    <script type="text/javascript" src='{% static "search/tokenfield/bootstrap-tokenfield.js" %}'></script>
+    <script type="text/javascript" src='{% static "search/libraries/fancyBox/jquery.fancybox.js" %}'></script>
+    <script type="text/javascript">
+      document.getElementById('tags-input').value = getQueryVar('tags');
+      $('#tags-input').tokenfield();
+      $('#tag-box').tooltip();
+      $('.fancybox').fancybox({
+        mousewheel : true,
+        loop : false,
+        afterLoad : function() {
+          this.title = this.title + " <a href='"+ this.content + "'>Source</a>."
+        }
+      });
+    </script>
   </div>
-  <!--
-  <h1>Search by location</h1>
-  You searched for {{ lat }},{{ lng }}.
-  <ul>
-    {% for photo, owner, title, date in urlList %}
-      <li> <img src="{{ photo }}"> 
-      	<p> {{ title }} taken on {{ date }} <p>
-          <a href="{{ owner }}">View original on flickr</a>
-      </li>
-    {% endfor %}
-  </ul> -->
 </body>
 </html>

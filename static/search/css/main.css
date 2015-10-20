@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 #top, #bottom {
   position:fixed;
   left: 0;
@@ -11,18 +12,18 @@ html, body {
 }
 
 #top {
+  z-index: 20;
   top: 0;
-  height:10%;
 }
 
-#top div {
+#tag-section div, input, button {
   display: inline-block;
   vertical-align: middle;
 }
 
 #bottom {
   bottom: 0;
-  height: 90%;
+  height: 100%;
 }
 
 #tag-section {
@@ -30,7 +31,15 @@ html, body {
   left: 35%;
 }
 
+#map-gap {
+  position:relative;
+  z-index: auto;
+  height: 10px;
+}
+
 #map {
+  position: relative;
+  z-index: 1;
   height: 100%;
 }
 
@@ -44,15 +53,13 @@ html, body {
 }
 
 #floating-panel {
-  position:absolute;
-  top: 9px;
-  left: 10px;
+  position: relative;
+  left: 20px;
   width: 40%;
-  z-index: 10;
   padding:4px 0px 2px 6px;
   font-family: 'Roboto','sans-serif';
   line-height: 25px;
-  %padding-left: 10px;        
+  %padding-left: 10px;
 }
 
 #text-span {

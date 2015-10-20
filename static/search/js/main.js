@@ -16,7 +16,7 @@ function initMap() {
   marker = new google.maps.Marker({
     position: myLatlng,
     map: map,
-    draggable: true
+    draggable: true,
   });
   marker.addListener('dragend', updateAutocomplete);
   
@@ -30,26 +30,41 @@ function initMap() {
     document.getElementById('dist').value = Math.round(circle.radius);
     radiusMarker.setPosition(getRadiusPosition());
   });
+  circle.addListener('center_changed', function() {
+    if (radiusMarker) {
+      radiusMarker.setPosition(getRadiusPosition()); 
+    }
+  });
   circle.bindTo('center', marker, 'position');
   
   radiusMarker = new google.maps.Marker({
     position: getRadiusPosition(),
     map: map,
-    draggable: true
+    draggable: true,
+    icon: document.getElementById('iconid').innerHTML,
+    clickable: false,
   });
   radiusMarker.addListener('drag', function() {
     circle.setRadius(google.maps.geometry.spherical.computeDistanceBetween(marker.position, radiusMarker.position));
   });
-  marker.addListener('drag', function() {
-    radiusMarker.setPosition(getRadiusPosition());
+  
+  /* hack used to prevent the marker drag ending in a 'click' event */
+  radiusMarker.addListener('dragstart', function() {
+    radiusMarker.setClickable(true);
+  });
+  radiusMarker.addListener('dragend', function() {
+    radiusMarker.setClickable(false);
   });
   
   map.addListener('click', function(e) {
-    var lat = e.latLng.lat();
-    var lng = e.latLng.lng();
-    marker.setPosition({lat: lat, lng: lng})
-    updateAutocomplete();
-//    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
+    if (!radiusMarker.getClickable()) { // hek
+      var lat = e.latLng.lat();
+      var lng = e.latLng.lng();
+      marker.setPosition({lat: lat, lng: lng})
+      updateAutocomplete();
+      console.log("click!");
+  //    httpGetAsync('map/results?lat=' + lat + '&lng=' + lng, testCallback);
+    }
   });
 
   document.getElementById('submit').addEventListener('click', function() {
@@ -58,7 +73,12 @@ function initMap() {
     var dist = document.getElementById('dist').value;
     var minDate = getMinDate();
     var maxDate = getMaxDate();
-    var tags = document.getElementById('tags-input').value;
+    var tags = "";
+    var tagBoxes = document.getElementsByClassName('token-label');
+    for(var i = 0; i < tagBoxes.length; i++)
+    {
+        tags += tagBoxes[i].innerHTML + ",";
+    }
     window.location.href = '/search/map/results?lat=' + lat + '&lng=' + lng + 
                            '&dist=' + dist + '&tags=' + tags + '&min_date=' + minDate +'&max_date=' + maxDate;
   });
@@ -73,7 +93,11 @@ function initMap() {
 
 function updateRadius() {
   var rad = parseInt(document.getElementById('dist').value);
-  circle.setRadius(rad);
+  if (!isNaN(rad)) {
+    circle.setRadius(rad);
+  } else {
+    document.getElementById('dist').value = Math.round(circle.getRadius());
+  }
 }
 
 function getRadiusPosition(){
