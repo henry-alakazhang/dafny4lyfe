@@ -126,6 +126,9 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
             };
             setTimeout(delay, 5);
         },
+        onSelect: function(date,inst) {
+            $('#max').text(moment(date,"MM/DD/YYYY").format("DD MMM YYYY"));  
+        },
     }).datepicker("setDate",moment($('#max').text(),"DD MMM YYYY").format("MM/DD/YYYY")).position({
         my: 'center bottom',
         at: 'center top',
