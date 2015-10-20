@@ -73,7 +73,7 @@ function initMap() {
     var dist = document.getElementById('dist').value;
     var minDate = getMinDate();
     var maxDate = getMaxDate();
-    var tag_mode = document.getElementById('any-radio').checked ? 'any' : 'all';
+    var tag_mode = document.getElementById('any-toggle').checked ? 'any' : 'all';
     var tags = "";
     var tagBoxes = document.getElementsByClassName('token-label');
     for(var i = 0; i < tagBoxes.length; i++)
