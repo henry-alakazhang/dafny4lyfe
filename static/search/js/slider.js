@@ -60,19 +60,18 @@ $("#slider").slider({
 });        
 
 var hand0 = $(".ui-slider-handle")[0];
-var hand1 = $(".ui-slider-handle")[1];          
-            
+var hand1 = $(".ui-slider-handle")[1];                      
 $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
     my: 'center bottom-15',
     at: 'center top',
     of: hand0
-}).click(function() {
+}).click(function() {        
     $('#maxDate').datepicker("destroy");
     $('#minDate').stop(true,true).datepicker("destroy").datepicker({
         changeMonth: true,
         changeYear: true,
         yearRange: "1970:" + years,
-        maxDate: 0,
+        maxDate: moment($("#max").text(),"DD MMM YYYY").subtract(1, 'days').format("MM/DD/YYYY"),
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {
                 $('#slider').slider("values",0,y);
@@ -84,12 +83,15 @@ $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
             };
             setTimeout(delay, 5);
         },
+        onSelect: function(date,inst) {
+            $('#min').text(moment(date,"MM/DD/YYYY").format("DD MMM YYYY"));  
+        },
     }).datepicker("setDate", moment($('#min').text(),"DD MMM YYYY").format("MM/DD/YYYY")).position({
         my: 'center bottom',
         at: 'center top',
         of: $("#min")
     }).fadeTo(100,1).mouseover(function() {
-        //console.log("Mouse over");        
+//         console.log("Mouse over");        
        $(this).stop(true,true).fadeTo(100,1); 
     }).mouseleave(function() {
        //console.log("Mouse gone");
@@ -106,6 +108,7 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
     at: 'center top',
     of: hand1
 }).click(function() {
+//     console.log("maxClick");
     $('#minDate').datepicker("destroy");
     $('#maxDate').stop(true,true).datepicker("destroy").datepicker({
         changeMonth: true,
@@ -128,7 +131,7 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
         at: 'center top',
         of: $("#max")
     }).fadeTo(100,1).mouseover(function() {
-        //console.log("Mouse over");        
+//         console.log("Mouse over");        
        $(this).stop(true,true).fadeTo(100,1); 
     }).mouseleave(function() {
        //console.log("Mouse gone");
