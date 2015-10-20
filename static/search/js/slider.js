@@ -9,12 +9,20 @@ $("#slider").slider({
         var delay = function() {
             var handleIndex = $(ui.handle).index();
             var label = handleIndex == 1 ? '#min' : '#max';
+            var otherLabel = label == '#min' ? '#max' : '#min';
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
+            if ($(label).offset().top > $(otherLabel).offset().top) {
+                $(otherLabel).position({
+                    my: 'center bottom',
+                    at: 'center bottom+' + $(otherLabel).height()*1.5,
+                    of: otherLabel                
+                });
+            }
             $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                 my: 'center bottom',
-                at: 'center top-15',
+                at: 'center top-' + (15 + $(label).height()*1.5),
                 of: ui.handle
             });
             
@@ -125,6 +133,9 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
                 });
             };
             setTimeout(delay, 5);
+        },
+        onSelect: function(date,inst) {
+            $('#max').text(moment(date,"MM/DD/YYYY").format("DD MMM YYYY"));  
         },
     }).datepicker("setDate",moment($('#max').text(),"DD MMM YYYY").format("MM/DD/YYYY")).position({
         my: 'center bottom',
