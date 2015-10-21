@@ -1,13 +1,18 @@
+var ajax_cf;
+
 jQuery(function() {
   // Flickr Key
   var apiKey = 'd924f5ea2a765922fc8794b3f9942133';
   // ContentFlow for images
-  var ajax_cf = new ContentFlow('ajax_cf',{
+  ajax_cf = new ContentFlow('ajax_cf',{
     circularFlow: false,
     startItem: 'last',
     flowSpeedFactor: 3.0,
     flowDragFriction: 2.0,
-    onclickActiveItem: function() {} // don't open link?
+    onclickActiveItem: function() {}, // don't open link?
+    onReachTarget: function(obj) {
+      console.log(obj);
+    }
   });
 
   function flickrMain() {
@@ -62,7 +67,6 @@ jQuery(function() {
             imgDom.src = photoUrl;
             boxDom.appendChild(imgDom);
 //            console.log(boxDom.innerHTML);
-           
             ajax_cf.addItem(boxDom, 'first');
 //            console.log(count);
 //            console.log(ajax_cf.getActiveItem());
@@ -107,3 +111,20 @@ function getQueryVar(variable) {
   }
   return(false);
 }
+
+/* hacky way to make gallery buttons work in the middle of the gallery*/
+/* DOESN'T WORK ON ENDS */
+
+$.fancybox.next = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index -1, 'left', 'prev');
+        ajax_cf.moveTo('right');
+    }
+};
+
+$.fancybox.prev = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index + 1, 'right', 'next');
+        ajax_cf.moveTo('left');
+    }
+};

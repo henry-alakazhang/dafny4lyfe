@@ -560,8 +560,8 @@ ContentFlowItem.prototype = {
                 /* calc image size */
                 var max = CFobj.maxHeight;
                 var size = CFobj._scaleImageSize(this, {width: max, height: max }, max)
-                var width = size.width;
-                var height = size.height;
+                var width = (size.width > 0) ? size.width : 2000;
+                var height = (size.height > 0) ? size.height : 1500;
 
                 // overwrite default height and width
                 if (CFobj._reflectionWithinImage) {
