@@ -97,6 +97,7 @@ $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
         changeMonth: true,
         changeYear: true,
         yearRange: "1970:" + years,
+        minDate: "01/01/1970",
         maxDate: moment($("#max").text(),"DD MMM YYYY").subtract(1, 'days').format("MM/DD/YYYY"),
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {
@@ -140,6 +141,7 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
         changeMonth: true,
         changeYear: true,
         yearRange: "1970:" + years,
+        minDate: moment($("#min").text(),"DD MMM YYYY").add(1, 'days').format("MM/DD/YYYY"),
         maxDate: 0,
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {

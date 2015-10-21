@@ -43,6 +43,16 @@ html, body {
   height: 100%;
 }
 
+.logo {    
+  font-size: 32px;
+  color: #cccccc;
+}
+
+.init{
+    font-size: 34px;
+    color: #4285F4;
+}
+
 #slider {      
   position: absolute;
   bottom: 2.5%;
