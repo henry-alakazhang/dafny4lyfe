@@ -53,23 +53,35 @@ jQuery(function() {
       } else {
         // for each photo object returned
         jQuery.each(data.photos.photo, function(index, item) {
+          // put repetitive data into variables
+          var photoDateTime = item.datetaken;
+          var photoDateTimeArray = photoDateTime.split(" ");
+          // formulate urls for the photo
           var photoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
                          item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
           var largePhotoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
-                         item.server + '/' + item.id + '_' + item.secret + '_c.jpg';
+                         item.server + '/' + item.id + '_' + item.secret + '_b.jpg';
           var photoSourceUrl = 'http://flickr.com/photos/' + item.owner + '/' + item.id;
+          // The 'item' element (for the contentflow)
           var boxDom = document.createElement("A");
           boxDom.setAttribute("class", "fancybox item");
           boxDom.setAttribute("rel", "gallery");
           boxDom.setAttribute("href", largePhotoUrl);
-          boxDom.setAttribute("title", item.title + " (" + item.datetaken + ")");
+          boxDom.setAttribute("title", item.title + " (" + photoDateTime + ")");
           boxDom.setAttribute("content", photoSourceUrl);
+          // the image element
           var imgDom = document.createElement("IMG");
           imgDom.setAttribute("class", "content");
-          imgDom.setAttribute("alt", item.title + " (" + item.datetaken + ")");
-
+          imgDom.setAttribute("alt", item.title + " (" + photoDateTime + ")");
           imgDom.src = photoUrl;
+          // slider label
+          var sliderLabelDom = document.createElement('div');
+          sliderLabelDom.setAttribute("class", "label");
+          sliderTextDom = document.createTextNode(photoDateTimeArray[0]);
+          sliderLabelDom.appendChild(sliderTextDom);
+          // attach them all together
           boxDom.appendChild(imgDom);
+          boxDom.appendChild(sliderLabelDom);
 //            console.log(boxDom.innerHTML);
           ajax_cf.addItem(boxDom, 'first');
 //            console.log(count);
