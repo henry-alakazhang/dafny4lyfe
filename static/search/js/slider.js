@@ -13,18 +13,26 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if ($(label).offset().top > $(otherLabel).offset().top) {
-                $(otherLabel).position({
+            if (Math.abs($("#slider").slider("values",0)-$("#slider").slider("values",1)) < 3) {
+                if ($(label).offset().top > $(otherLabel).offset().top) {
+                    $(otherLabel).position({
+                        my: 'center bottom',
+                        at: 'center bottom+' + $(otherLabel).height()*1.5,
+                        of: otherLabel                
+                    });
+                }
+                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                     my: 'center bottom',
-                    at: 'center bottom+' + $(otherLabel).height()*1.5,
-                    of: otherLabel                
+                    at: 'center top-' + (15 + $(label).height()*1.5),
+                    of: ui.handle
                 });
-            }
-            $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
-                my: 'center bottom',
-                at: 'center top-' + (15 + $(label).height()*1.5),
-                of: ui.handle
-            });
+            } else {
+                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
+                    my: 'center bottom',
+                    at: 'center top-15',
+                    of: ui.handle
+                });                 
+            }         
             
             $(datePicker).position({
                 my: 'center bottom',
@@ -43,19 +51,26 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if ($(label).offset().top > $(otherLabel).offset().top) {
-                $(otherLabel).position({
+            if (Math.abs($("#slider").slider("values",0)-$("#slider").slider("values",1)) < 3) {
+                if ($(label).offset().top > $(otherLabel).offset().top) {
+                    $(otherLabel).position({
+                        my: 'center bottom',
+                        at: 'center bottom+' + $(otherLabel).height()*1.5,
+                        of: otherLabel                
+                    });
+                }
+                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                     my: 'center bottom',
-                    at: 'center bottom+' + $(otherLabel).height()*1.5,
-                    of: otherLabel                
-                });
+                    at: 'center top-' + (15 + $(label).height()*1.5),
+                    of: ui.handle
+                });            
+            } else {                
+                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
+                    my: 'center bottom',
+                    at: 'center top-15',
+                    of: ui.handle
+                }); 
             }
-            $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
-                my: 'center bottom',
-                at: 'center top-' + (15 + $(label).height()*1.5),
-                of: ui.handle
-            });            
-            
             $(datePicker).position({
                 my: 'center bottom',
                 at: 'center top',
