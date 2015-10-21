@@ -17,6 +17,13 @@ jQuery(function() {
            this.getActiveItem() == this.getItem(0)) {
         search();
       }
+    },
+    onDrawItem: function(obj) {
+      var img = obj.element.childNodes[0];
+      if (img.height > 1000) {
+        var i = obj.index;
+        ajax_cf.rmItem(i);
+      }
     }
   });
 
@@ -67,9 +74,9 @@ jQuery(function() {
           boxDom.setAttribute("class", "fancybox item");
           boxDom.setAttribute("rel", "gallery");
           boxDom.setAttribute("href", largePhotoUrl);
-          boxDom.setAttribute("title", item.title + " (" + photoDateTime + ")");
-          boxDom.setAttribute("content", photoSourceUrl);
-          // the image element
+          boxDom.setAttribute("title", item.title + " (" + item.datetaken + ")");
+          boxDom.setAttribute("source", photoSourceUrl);
+          // The 'image' element
           var imgDom = document.createElement("IMG");
           imgDom.setAttribute("class", "content");
           imgDom.setAttribute("alt", item.title + " (" + photoDateTime + ")");
@@ -84,8 +91,8 @@ jQuery(function() {
           boxDom.appendChild(sliderLabelDom);
 //            console.log(boxDom.innerHTML);
           ajax_cf.addItem(boxDom, 'first');
-//            console.log(count);
-//            console.log(ajax_cf.getActiveItem());
+
+          console.log(ajax_cf.getNumberOfItems());
           // once all the items from current page have been returned
           // get items from next page
           // NEED TO CHANGE TO next page on end of scroll... else will load 4eva
@@ -94,9 +101,11 @@ jQuery(function() {
             count = 0;
           }
         });
+        
       }
     });
   }
+  
 });
 
 

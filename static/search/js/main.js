@@ -27,7 +27,7 @@ function saveToLocalStorage() {
             tags.push(tagBoxes[i].innerHTML);
         }
         localStorage.tags = JSON.stringify(tags);
-    }    
+    }
 }
 
 function fillFromLocalStorage() {
@@ -52,8 +52,8 @@ function fillFromLocalStorage() {
 
 function initMap() {
     var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
-    if (typeof(Storage) !== null) {
-        if (localStorage.lat != "" && localStorage.lng != "") {
+    if (typeof(Storage) !== "undefined") {
+        if (localStorage.lat != null && localStorage.lng != null) {
             myLatlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);           
         }    
     }
@@ -76,7 +76,8 @@ function initMap() {
     map: map,
     clickable: false,
     radius: parseInt(document.getElementById('dist').value),
-    fillColour:'#AA0000'
+    strokeColor: '#4285F4',
+    fillColor: '#204080'
   })
   circle.addListener('radius_changed', function() {
     document.getElementById('dist').value = Math.round(circle.radius);

@@ -59,7 +59,7 @@
         mousewheel : true,
         loop : false,
         afterLoad : function() {
-          this.title = this.title + " <a href='"+ this.content + "'>Source</a>.";
+          this.title = this.title + " <a href='"+ $(this.element).attr('source') + "'>Source</a>.";
         },
       });
     </script>
