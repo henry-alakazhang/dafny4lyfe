@@ -63,7 +63,7 @@ jQuery(function() {
           boxDom.setAttribute("rel", "gallery");
           boxDom.setAttribute("href", largePhotoUrl);
           boxDom.setAttribute("title", item.title + " (" + item.datetaken + ")");
-          boxDom.setAttribute("content", photoSourceUrl);
+          boxDom.setAttribute("source", photoSourceUrl);
           var imgDom = document.createElement("IMG");
           imgDom.setAttribute("class", "content");
           imgDom.setAttribute("alt", item.title + " (" + item.datetaken + ")");

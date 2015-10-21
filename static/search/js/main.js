@@ -24,7 +24,8 @@ function initMap() {
     map: map,
     clickable: false,
     radius: parseInt(document.getElementById('dist').value),
-    fillColour:'#AA0000'
+    strokeColor: '#4285F4',
+    fillColor: '#204080'
   })
   circle.addListener('radius_changed', function() {
     document.getElementById('dist').value = Math.round(circle.radius);
