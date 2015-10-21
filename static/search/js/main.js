@@ -27,7 +27,7 @@ function saveToLocalStorage() {
             tags.push(tagBoxes[i].innerHTML);
         }
         localStorage.tags = JSON.stringify(tags);
-    }    
+    }
 }
 
 function fillFromLocalStorage() {

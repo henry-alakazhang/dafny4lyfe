@@ -17,6 +17,13 @@ jQuery(function() {
            this.getActiveItem() == this.getItem(0)) {
         search();
       }
+    },
+    onDrawItem: function(obj) {
+      var img = obj.element.childNodes[0];
+      if (img.height > 1000) {
+        var i = obj.index;
+        ajax_cf.rmItem(i);
+      }
     }
   });
 
@@ -70,10 +77,9 @@ jQuery(function() {
 
           imgDom.src = photoUrl;
           boxDom.appendChild(imgDom);
-//            console.log(boxDom.innerHTML);
           ajax_cf.addItem(boxDom, 'first');
-//            console.log(count);
-//            console.log(ajax_cf.getActiveItem());
+
+          console.log(ajax_cf.getNumberOfItems());
           // once all the items from current page have been returned
           // get items from next page
           // NEED TO CHANGE TO next page on end of scroll... else will load 4eva
@@ -82,9 +88,11 @@ jQuery(function() {
             count = 0;
           }
         });
+        
       }
     });
   }
+  
 });
 
 
