@@ -137,3 +137,21 @@ $.fancybox.prev = function ( direction ) {
         ajax_cf.moveTo('left');
     }
 };
+
+
+function updateLocation() {
+  var gc = new google.maps.Geocoder();
+  var latlng = {'lat': Number(getQueryVar('lat')) , 'lng': Number(getQueryVar('lng'))}
+  gc.geocode({'location': latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      start = results[0].address_components[0].short_name;
+      if (results.length > 1 && (/\d$/.test(start) || /^\d/.test(start))) {
+        document.getElementById('location').innerHTML = "Showing results from " + results[1].formatted_address;
+      } else {
+        document.getElementById('location').innerHTML  = "Showing results from " + results[0].formatted_address;
+      }
+    } else {
+      document.getElementById('location').innerHTML = "Showing results from an unknown location...";
+    }
+  });
+}
