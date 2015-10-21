@@ -4,6 +4,50 @@ var marker;
 var circle;
 var radiusMarker;
 
+$(window).on('beforeunload', function (event) {
+    saveToLocalStorage();
+});
+
+$(document).on('ready', function (event) {
+    fillFromLocalStorage();
+});
+
+function saveToLocalStorage() {
+    if (typeof(Storage) !== 'undefined') {
+        localStorage.lat = marker.getPosition().lat();
+        localStorage.lng = marker.getPosition().lng();
+        localStorage.dist = document.getElementById('dist').value;
+        localStorage.minDate = getMinDate();
+        localStorage.maxDate = getMaxDate();
+        localStorage.tag_mode = document.getElementById('any-toggle').checked ? 'any' : 'all';
+        var tags = [];
+        var tagBoxes = document.getElementsByClassName('token-label');
+        for(var i = 0; i < tagBoxes.length; i++)
+        {
+            tags.push(tagBoxes[i].innerHTML);
+        }
+        localStorage.tags = JSON.stringify(tags);
+    }    
+}
+
+function fillFromLocalStorage() {
+    if (typeof(Storage) !== 'undefined') {        
+        $("#dist").value = localStorage.dist;
+        if (localStorage.tag_mode == 'any' || 'all') {
+            if (localStorage.tag_mode == 'any') {
+                $("#any-toggle").bootstrapToggle('on')
+            } else {
+                $("#any-toggle").bootstrapToggle('off')                
+            }
+        }        
+        if (localStorage.tags != "") {
+            var tags = JSON.parse(localStorage.tags);
+            $("#tags-input").tokenfield('setTokens',tags);
+//             console.log("restoring tags");
+        }
+    }   
+}
+
 function initMap() {
   var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
 
@@ -19,6 +63,13 @@ function initMap() {
     draggable: true,
   });
   marker.addListener('dragend', updateAutocomplete);
+
+  if (typeof(Storage) !== 'undefined') {
+    if (localStorage.lat != "" && localStorage.lng != "") {
+        var latlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);
+        marker.setPosition(latlng);   
+    }    
+  }
   
   circle = new google.maps.Circle({
     map: map,
@@ -164,12 +215,12 @@ function testCallback(responseText) {
 }
 
 function getMinDate() {
-  var date = moment($("#min").text()).format("YYYY-MM-DD");
+  var date = moment($("#min").text(),"DD MMM YYYY").format("YYYY-MM-DD");
   return date;
 }
 
 function getMaxDate() {   
-  var date = moment($("#max").text()).format("YYYY-MM-DD");
+  var date = moment($("#max").text(),"DD MMM YYYY").format("YYYY-MM-DD");
   return date;
 }
 

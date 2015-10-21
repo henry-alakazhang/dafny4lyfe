@@ -170,6 +170,22 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
         $(this).unbind('mouseover').datepicker("destroy");
     });
 });   
+//     console.log("restoring date");
+
+if (localStorage.minDate != "") {
+//     console.log("restoring date");
+    var min = localStorage.minDate;
+    var minDate = moment(min,"YYYY-MM-DD");
+    $("#min").text(minDate.format("DD MMM YYYY"));
+    $("#slider").slider("values",0,minDate.year())    
+}
+
+if (localStorage.maxDate != "") {
+    var max = localStorage.maxDate;
+    var maxDate = moment(max,"YYYY-MM-DD");
+    $("#max").text(maxDate.format("DD MMM YYYY"));
+    $("#slider").slider("values",1,maxDate.year())
+}
 
 $(window).resize(function() {
     $('#min').position({
