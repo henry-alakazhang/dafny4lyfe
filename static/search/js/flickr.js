@@ -39,8 +39,6 @@ jQuery(function() {
           document.getElementById('ajax_cf').innerHTML = '<center style="color:#FFFFFF">No images found. <p>Try different search criteria.</p></center>';
           // display no photos and do stuff to show no that there are no results
         } else {
-          // create the DOM element for the contentflow
-
           // for each photo object returned
           jQuery.each(data.photos.photo, function(index, item) {
             var photoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
@@ -61,7 +59,7 @@ jQuery(function() {
             imgDom.src = photoUrl;
             boxDom.appendChild(imgDom);
            
-            ajax_cf.addItem(boxDom, 'last');
+            ajax_cf.addItem(boxDom, 'first');
             
             // once all the items from current page have been returned
             // get items from next page
