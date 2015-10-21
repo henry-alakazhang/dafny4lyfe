@@ -7,8 +7,6 @@ jQuery(function() {
     onclickActiveItem: function() {} // don't open link?
   });
 
-  ajax_cf._init();
-
   function flickrMain() {
     var baseUrl = 'https://api.flickr.com/services/rest/?jsoncallback=?';
     var flickrOptions = {
