@@ -13,28 +13,28 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if (($(otherLabel).position().left < 50 + $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
-                ($(label).position().left < 30 + $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {            
-                if ($(label).offset().top > $(otherLabel).offset().top) {
+            $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
+                my: 'center bottom',
+                at: 'center top-15',
+                of: ui.handle
+            });  
+            if (($(otherLabel).position().left < $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
+                ($(label).position().left < $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {            
+                if ($(label).offset().top > $(label).height() + $(otherLabel).offset().top) {
                     $(otherLabel).position({
                         my: 'center bottom',
-                        at: 'center bottom+' + $(otherLabel).height()*1.5,
+                        at: 'center bottom+' + (15 + $(otherLabel).height()*1.5),
                         of: otherLabel                
                     });
                 }
                 $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                     my: 'center bottom',
-                    at: 'center top-' + (15 + $(label).height()*1.5),
-                    of: ui.handle
+                    at: 'center bottom-' + (15 + $(label).height()*1.5),
+                    of: label
                 });
-            } else {
-                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
-                    my: 'center bottom',
-                    at: 'center top-15',
-                    of: ui.handle
-                });                 
-            }         
-            
+            }
+//             console.log($(otherLabel).position().left + " / " + $(label).position().left + ' - ' + $(label).width());
+                                 
             $(datePicker).position({
                 my: 'center bottom',
                 at: 'center top',
@@ -52,27 +52,28 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if (($(otherLabel).position().left < 30 + $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
-                ($(label).position().left < 30 + $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {
-                if ($(label).offset().top > $(otherLabel).offset().top) {
+            $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
+                my: 'center bottom',
+                at: 'center top-15',
+                of: ui.handle
+            });  
+            if (($(otherLabel).position().left < $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
+                ($(label).position().left < $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {            
+                if ($(label).offset().top > $(label).height() + $(otherLabel).offset().top) {
                     $(otherLabel).position({
                         my: 'center bottom',
-                        at: 'center bottom+' + $(otherLabel).height()*1.5,
+                        at: 'center bottom+' + (15 + $(otherLabel).height()*1.5),
                         of: otherLabel                
                     });
                 }
                 $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
                     my: 'center bottom',
-                    at: 'center top-' + (15 + $(label).height()*1.5),
-                    of: ui.handle
-                });            
-            } else {                
-                $(label).html(moment($(label).text(),"DD MMM YYYY").format("DD MMM ") + ui.value).position({
-                    my: 'center bottom',
-                    at: 'center top-15',
-                    of: ui.handle
-                }); 
+                    at: 'center bottom-' + (15 + $(label).height()*1.5),
+                    of: label
+                });
             }
+//             console.log($(otherLabel).position().left + " / " + $(label).position().left + ' - ' + $(label).width());
+            
             $(datePicker).position({
                 my: 'center bottom',
                 at: 'center top',
@@ -170,6 +171,22 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
         $(this).unbind('mouseover').datepicker("destroy");
     });
 });   
+//     console.log("restoring date");
+
+if (localStorage.minDate != "") {
+//     console.log("restoring date");
+    var min = localStorage.minDate;
+    var minDate = moment(min,"YYYY-MM-DD");
+    $("#min").text(minDate.format("DD MMM YYYY"));
+    $("#slider").slider("values",0,minDate.year());    
+}
+
+if (localStorage.maxDate != "") {
+    var max = localStorage.maxDate;
+    var maxDate = moment(max,"YYYY-MM-DD");
+    $("#max").text(maxDate.format("DD MMM YYYY"));
+    $("#slider").slider("values",1,maxDate.year());
+}
 
 $(window).resize(function() {
     $('#min').position({
