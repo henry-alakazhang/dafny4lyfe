@@ -136,7 +136,7 @@ output:after {
 }
 
 #minDate, #maxDate {
-    z-index:10
+    z-index:9999;
 }
 div.ui-datepicker{
  font-size:10px;
@@ -145,7 +145,6 @@ div.ui-datepicker{
 #slider {    
     font-size:8px;
 }
-.ui-datepicker{ z-index: 9999 !important;}
 
 .ui-slider-handle {
     background: url(../../slider/handle.png) 50% 50% repeat-x !important;
