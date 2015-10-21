@@ -31,7 +31,7 @@ function saveToLocalStorage() {
 }
 
 function fillFromLocalStorage() {
-    if (typeof(Storage) !== 'undefined') {     
+    if (typeof(Storage) !== null) {     
         if (localStorage.tag_mode == 'any' || 'all') {
             if (localStorage.tag_mode == 'any') {
                 $("#any-toggle").bootstrapToggle('on')
@@ -39,24 +39,24 @@ function fillFromLocalStorage() {
                 $("#any-toggle").bootstrapToggle('off')                
             }
         }   
-        if (localStorage.tags != "") {
+        if (localStorage.tags != null) {
             var tags = JSON.parse(localStorage.tags);
             $("#tags-input").tokenfield('setTokens',tags);
 //             console.log("restoring tags");
         } 
-        if (localStorage.dist != "") {
+        if (localStorage.dist != null) {
             $("#dist").val(localStorage.dist);
         }
     }   
 }
 
 function initMap() {
-  var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
-    if (typeof(Storage) !== 'undefined') {
-    if (localStorage.lat != "" && localStorage.lng != "") {
-        var myLatlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);           
-    }    
-  }
+    var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
+    if (typeof(Storage) !== null) {
+        if (localStorage.lat != "" && localStorage.lng != "") {
+            myLatlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);           
+        }    
+    }
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatlng,
     zoom: 11,

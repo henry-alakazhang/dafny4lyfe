@@ -173,15 +173,16 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
 });   
 //     console.log("restoring date");
 
-if (localStorage.minDate != "") {
-//     console.log("restoring date");
+if (localStorage.minDate != null) {
+    console.log(localStorage.minDate);
     var min = localStorage.minDate;
     var minDate = moment(min,"YYYY-MM-DD");
     $("#min").text(minDate.format("DD MMM YYYY"));
     $("#slider").slider("values",0,minDate.year());    
 }
 
-if (localStorage.maxDate != "") {
+if (localStorage.maxDate != null) {
+    console.log(localStorage.maxDate);
     var max = localStorage.maxDate;
     var maxDate = moment(max,"YYYY-MM-DD");
     $("#max").text(maxDate.format("DD MMM YYYY"));
