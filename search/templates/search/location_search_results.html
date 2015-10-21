@@ -19,6 +19,9 @@
   <script type="text/javascript" src='{% static "search/libraries/fancyBox/jquery.fancybox.js" %}'></script>
   <!-- Main .js file -->
   <script src='{% static "search/js/flickr.js" %}'></script>
+  <script type="text/javascript" src='{% static "search/js/bootstrap.js" %}'></script>
+  <script type="text/javascript" src='{% static "search/tokenfield/bootstrap-tokenfield.js" %}'></script>
+  <script type="text/javascript" src='{% static "search/libraries/bootstrap-toggle/js/bootstrap-toggle.min.js" %}'></script>
 
 </head>
 
@@ -48,21 +51,18 @@
     <div class="scrollbar"><div class="slider"><div class="position"></div></div></div>
     
     <!-- Late-load javascript -->
-    <script type="text/javascript" src='{% static "search/js/bootstrap.js" %}'></script>
-    <script type="text/javascript" src='{% static "search/tokenfield/bootstrap-tokenfield.js" %}'></script>
-    <script type="text/javascript" src='{% static "search/libraries/bootstrap-toggle/js/bootstrap-toggle.min.js" %}'></script>
-    <script type="text/javascript">
-      document.getElementById('tags-input').value = getQueryVar('tags');
-      document.getElementById('any-toggle').checked = (getQueryVar('tag_mode') == 'any');
-      $('#tags-input').tokenfield();
-      $('.fancybox').fancybox({
-        mousewheel : true,
-        loop : false,
-        afterLoad : function() {
-          this.title = this.title + " <a href='"+ $(this.element).attr('source') + "'>Source</a>.";
-        },
-      });
-    </script>
+  <script type="text/javascript">
+    document.getElementById('tags-input').value = getQueryVar('tags').replace(/%20/g," ");
+    document.getElementById('any-toggle').checked = (getQueryVar('tag_mode') == 'any');
+    $('#tags-input').tokenfield();
+    $('.fancybox').fancybox({
+      mousewheel : true,
+      loop : false,
+      afterLoad : function() {
+        this.title = this.title + " <a href='"+ $(this.element).attr('source') + "'>Source</a>.";
+      },
+    });
+  </script>
   </div>
 </body>
 </html>

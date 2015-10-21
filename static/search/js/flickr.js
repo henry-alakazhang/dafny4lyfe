@@ -44,7 +44,7 @@ jQuery(function() {
     page: '1'
   }
   if (getQueryVar('tags') != '') {
-    flickrOptions.tags = getQueryVar('tags');
+    flickrOptions.tags = getQueryVar('tags').replace(/%20/g,"");
     flickrOptions.tag_mode = getQueryVar('tag_mode');
   }
 
@@ -92,7 +92,6 @@ jQuery(function() {
 //            console.log(boxDom.innerHTML);
           ajax_cf.addItem(boxDom, 'first');
 
-          console.log(ajax_cf.getNumberOfItems());
           // once all the items from current page have been returned
           // get items from next page
           // NEED TO CHANGE TO next page on end of scroll... else will load 4eva
