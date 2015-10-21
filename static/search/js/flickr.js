@@ -16,6 +16,10 @@ jQuery(function() {
       if ((this.getNumberOfItems() > FLICKR_PER_PAGE/2) && 
            this.getActiveItem() == this.getItem(0)) {
         search();
+
+      if (this._slideshow_stoped && !this._slideshow_locked) {
+        this._startSlideshow();
+        }
       }
     },
     onDrawItem: function(obj) {
@@ -44,7 +48,7 @@ jQuery(function() {
     page: '1'
   }
   if (getQueryVar('tags') != '') {
-    flickrOptions.tags = getQueryVar('tags');
+    flickrOptions.tags = getQueryVar('tags').replace(/%20/g,"");
     flickrOptions.tag_mode = getQueryVar('tag_mode');
   }
 
@@ -92,7 +96,6 @@ jQuery(function() {
 //            console.log(boxDom.innerHTML);
           ajax_cf.addItem(boxDom, 'first');
 
-          console.log(ajax_cf.getNumberOfItems());
           // once all the items from current page have been returned
           // get items from next page
           // NEED TO CHANGE TO next page on end of scroll... else will load 4eva
@@ -138,3 +141,21 @@ $.fancybox.prev = function ( direction ) {
         ajax_cf.moveTo('left');
     }
 };
+
+
+function updateLocation() {
+  var gc = new google.maps.Geocoder();
+  var latlng = {'lat': Number(getQueryVar('lat')) , 'lng': Number(getQueryVar('lng'))}
+  gc.geocode({'location': latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      start = results[0].address_components[0].short_name;
+      if (results.length > 1 && (/\d$/.test(start) || /^\d/.test(start))) {
+        document.getElementById('location').innerHTML = "Showing results from " + results[1].formatted_address;
+      } else {
+        document.getElementById('location').innerHTML  = "Showing results from " + results[0].formatted_address;
+      }
+    } else {
+      document.getElementById('location').innerHTML = "Showing results from an unknown location...";
+    }
+  });
+}

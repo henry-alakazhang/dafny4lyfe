@@ -144,7 +144,7 @@ new ContentFlowAddOn ('slideshow', {
          * called after the inactive item is clicked.
          */
         onclickInactiveItem : function (item) {
-            this._stopSlideshow();
+            //this._stopSlideshow();
         },
 
         /*
@@ -168,7 +168,7 @@ new ContentFlowAddOn ('slideshow', {
          * called when a new target is set
          */
         onMoveTo: function(item) {
-            this._stopSlideshow();
+            //this._stopSlideshow();
         }
 
 	
