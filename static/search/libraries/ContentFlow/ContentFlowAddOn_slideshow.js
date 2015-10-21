@@ -110,21 +110,9 @@ new ContentFlowAddOn ('slideshow', {
             slow.setAttribute('title', "slower");
             slow.addEvent('click', function (e) { Event.stop(e); flow._setSlideshowSpeed(flow._slideshow_duration*2);}, '');
 
-            var pre = document.createElement('div');
-            $CF(pre).addClassName('button');
-            pre.addClassName('preButton');
-            pre.setAttribute('title', "previouse");
-
-            var next = document.createElement('div');
-            $CF(next).addClassName('button');
-            next.addClassName('nextButton');
-            next.setAttribute('title', "next");
-
-            c.appendChild(pre);
             c.appendChild(slow);
             c.appendChild(p);
             c.appendChild(ff);
-            c.appendChild(next);
             flow.Container.appendChild(c);
         }
 
