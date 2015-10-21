@@ -13,7 +13,8 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if (Math.abs($("#slider").slider("values",0)-$("#slider").slider("values",1)) < 3) {
+            if (($(otherLabel).position().left < 50 + $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
+                ($(label).position().left < 30 + $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {            
                 if ($(label).offset().top > $(otherLabel).offset().top) {
                     $(otherLabel).position({
                         my: 'center bottom',
@@ -51,7 +52,8 @@ $("#slider").slider({
             var datePicker = label == '#min' ? '#minDate' : '#maxDate';
             //console.log(handleIndex);
             //console.log(ui.value);
-            if (Math.abs($("#slider").slider("values",0)-$("#slider").slider("values",1)) < 3) {
+            if (($(otherLabel).position().left < 30 + $(label).position().left + $(label).width() && $(otherLabel).position().left >= $(label).position().left) || 
+                ($(label).position().left < 30 + $(otherLabel).position().left + $(otherLabel).width() && $(otherLabel).position().left <= $(label).position().left)) {
                 if ($(label).offset().top > $(otherLabel).offset().top) {
                     $(otherLabel).position({
                         my: 'center bottom',
