@@ -16,6 +16,10 @@ jQuery(function() {
       if ((this.getNumberOfItems() > FLICKR_PER_PAGE/2) && 
            this.getActiveItem() == this.getItem(0)) {
         search();
+
+      if (this._slideshow_stoped && !this._slideshow_locked) {
+        this._startSlideshow();
+        }
       }
     },
     onDrawItem: function(obj) {
