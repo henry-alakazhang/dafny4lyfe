@@ -1,10 +1,18 @@
+var ajax_cf;
+
 jQuery(function() {
   // Flickr Key
   var apiKey = 'd924f5ea2a765922fc8794b3f9942133';
   // ContentFlow for images
-  var ajax_cf = new ContentFlow('ajax_cf',{
+  ajax_cf = new ContentFlow('ajax_cf',{
     circularFlow: false,
-    onclickActiveItem: function() {} // don't open link?
+    startItem: 'last',
+    flowSpeedFactor: 3.0,
+    flowDragFriction: 2.0,
+    onclickActiveItem: function() {}, // don't open link?
+    onReachTarget: function(obj) {
+      console.log(obj);
+    }
   });
 
   function flickrMain() {
@@ -21,7 +29,7 @@ jQuery(function() {
       sort: 'date-taken-desc',
       extras: 'date_taken',
       format: 'json',
-      per_page: '500',
+      per_page: '250',
       page: '1'
     }
     if (getQueryVar('tags') != '') {
@@ -36,7 +44,7 @@ jQuery(function() {
       // Performs request using API (REST method) to flickr
       jQuery.getJSON(baseUrl, flickrOptions, function(data) {
         if (data.photos.photo.length == 0 && flickrOptions['page'] == 1) {
-          document.getElementById('ajax_cf').innerHTML = '<center style="color:#FFFFFF">No images found. <p>Try different search criteria.</p></center>';
+          document.getElementById('ajax_cf').innerHTML = '<center style="color:#000000">No images found. <p>Try different search criteria.</p></center>';
           // display no photos and do stuff to show no that there are no results
         } else {
           // for each photo object returned
@@ -58,16 +66,28 @@ jQuery(function() {
 
             imgDom.src = photoUrl;
             boxDom.appendChild(imgDom);
-           
+//            console.log(boxDom.innerHTML);
             ajax_cf.addItem(boxDom, 'first');
-            
+//            console.log(count);
+//            console.log(ajax_cf.getActiveItem());
             // once all the items from current page have been returned
             // get items from next page
             // NEED TO CHANGE TO next page on end of scroll... else will load 4eva
             if (++count == data.photos.photo.length) {
+              console.log(data.photos.photo.length)
+              console.log(boxDom.innerHTML);
+              console.log 
               flickrOptions['page']++;
               count = 0;
-              search();
+              ajax_cf.onReachTarget(boxDom);/*
+              newRequestThreshold = {
+                onReachTarget: function(boxDom) {
+                  console.log("reached target " + boxDom.innerHTML);
+                  search();
+                }
+              }
+              ajax_cf.setConfig(newRequestThreshold);*/
+              //search();
             }
           });
         }
@@ -91,3 +111,20 @@ function getQueryVar(variable) {
   }
   return(false);
 }
+
+/* hacky way to make gallery buttons work in the middle of the gallery*/
+/* DOESN'T WORK ON ENDS */
+
+$.fancybox.next = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index -1, 'left', 'prev');
+        ajax_cf.moveTo('right');
+    }
+};
+
+$.fancybox.prev = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index + 1, 'right', 'next');
+        ajax_cf.moveTo('left');
+    }
+};

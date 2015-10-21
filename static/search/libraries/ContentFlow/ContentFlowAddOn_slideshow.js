@@ -134,7 +134,7 @@ new ContentFlowAddOn ('slideshow', {
      * For a detailed explanation of each value take a look at the documentation.
      */
 	ContentFlowConf: {
-        circularFlow: true,             // should the flow wrap around at begging and end?
+        circularFlow: false,             // should the flow wrap around at begging and end?
 
 
         onInit: function () {
