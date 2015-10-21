@@ -19,7 +19,6 @@
   <link rel="stylesheet" href='{% static "search/libraries/ContentFlow/contentflow.css" %}'/>
   <link rel="stylesheet" href='{% static "search/libraries/fancyBox/jquery.fancybox.css" %}'/>
   <link rel="stylesheet" href='{% static "search/libraries/bootstrap-toggle/css/bootstrap-toggle.min.css" %}'/>
-
 </head>
 
 <body style="background-color:#000000">
@@ -60,7 +59,7 @@
         loop : false,
         afterLoad : function() {
           this.title = this.title + " <a href='"+ this.content + "'>Source</a>.";
-        }
+        },
       });
     </script>
   </div>

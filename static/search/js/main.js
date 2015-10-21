@@ -9,7 +9,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatlng,
-    zoom: 10,
+    zoom: 11,
     streetViewControl: false
   });
 
@@ -54,6 +54,7 @@ function initMap() {
   });
   radiusMarker.addListener('dragend', function() {
     radiusMarker.setClickable(false);
+    checkRadius();
   });
   
   map.addListener('click', function(e) {
@@ -95,10 +96,49 @@ function initMap() {
 
 function updateRadius() {
   var rad = parseInt(document.getElementById('dist').value);
-  if (!isNaN(rad)) {
+  if (!isNaN(rad) && rad > 0) {
     circle.setRadius(rad);
   } else {
     document.getElementById('dist').value = Math.round(circle.getRadius());
+  }
+  checkRadius();
+}
+
+/* fixes radius-related stuff for QoL
+ * limits radius to [0, 32]km and zooms/pans if radius is unfitting to map zoom
+ */
+function checkRadius() {
+  var rad = circle.getRadius();
+  circle.setRadius((rad > 32000) ? 32000 : rad);
+  currZoom = map.getZoom();
+  if (rad >= 30000) {
+    map.setZoom(9);
+  } else if (rad >= 18000 && 30000 >= rad) {
+    map.setZoom(10);
+  } else if (rad >= 9000 && 18000 >= rad) {
+    map.setZoom(11);
+  } else if (rad >= 4500 && 9000 >= rad) {
+    map.setZoom(12);
+  } else if (rad >= 2000 && 4500 >= rad) {
+    map.setZoom(13);
+  } else if (rad >= 1000 && 2000 >= rad) {
+    map.setZoom(14);
+  } else if (rad >= 500 && 1000 >= rad){ 
+    map.setZoom(15);
+  } else if (rad >= 250 && 500 >= rad) {
+    map.setZoom(16); 
+  } else if (rad >= 100 && 250 >= rad) {
+    map.setZoom(17);
+  } else if (rad >= 50 && 100 >= rad) {
+    map.setZoom(18);
+  } else if (rad >= 25 && 50 >= rad) {
+    map.setZoom(19);
+  } else {
+    map.setZoom(20);
+  }
+  // only recenter map if the zoom changed, so the user doesn't lose the marker
+  if (currZoom != map.getZoom()) {
+    map.setCenter(marker.position);
   }
 }
 

@@ -1,8 +1,10 @@
+var ajax_cf;
+
 jQuery(function() {
   // Flickr Key
   var apiKey = 'd924f5ea2a765922fc8794b3f9942133';
   // ContentFlow for images
-  var ajax_cf = new ContentFlow('ajax_cf',{
+  ajax_cf = new ContentFlow('ajax_cf',{
     circularFlow: false,
     onclickActiveItem: function() {} // don't open link?
   });
@@ -58,7 +60,7 @@ jQuery(function() {
 
             imgDom.src = photoUrl;
             boxDom.appendChild(imgDom);
-           
+            
             ajax_cf.addItem(boxDom, 'first');
             
             // once all the items from current page have been returned
@@ -91,3 +93,20 @@ function getQueryVar(variable) {
   }
   return(false);
 }
+
+/* hacky way to make gallery buttons work in the middle of the gallery*/
+/* DOESN'T WORK ON ENDS */
+
+$.fancybox.next = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index -1, 'left', 'prev');
+        ajax_cf.moveTo('right');
+    }
+};
+
+$.fancybox.prev = function ( direction ) {
+    if ($.fancybox.current) {
+        $.fancybox.jumpto($.fancybox.current.index + 1, 'right', 'next');
+        ajax_cf.moveTo('left');
+    }
+};
