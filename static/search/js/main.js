@@ -146,6 +146,7 @@ function initMap() {
   });
   
   updateAutocomplete();
+  checkRadius();
 }
 
 function updateRadius() {
