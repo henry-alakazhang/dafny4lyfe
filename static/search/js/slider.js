@@ -101,7 +101,9 @@ $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
         maxDate: moment($("#max").text(),"DD MMM YYYY").subtract(1, 'days').format("MM/DD/YYYY"),
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {
-                $('#slider').slider("values",0,y);
+                if ($('#slider').slider("values",0) != y) {
+                    $('#slider').slider("values",0,y);
+                }
                 $('#minDate').position({
                     my: 'center bottom',
                     at: 'center top',
@@ -145,7 +147,9 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
         maxDate: 0,
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {
-                $('#slider').slider("values",1,y);
+                if ($('#slider').slider("values",1) != y) {
+                    $('#slider').slider("values",1,y);
+                }
                 $('#maxDate').position({
                     my: 'center bottom',
                     at: 'center top',
@@ -176,17 +180,44 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
 //     console.log("restoring date");
 
 if (localStorage.minDate != null) {
-    console.log(localStorage.minDate);
     var min = localStorage.minDate;
-    var minDate = moment(min,"YYYY-MM-DD");
-    $("#min").text(minDate.format("DD MMM YYYY"));
-    $("#slider").slider("values",0,minDate.year());    
+    var minDate = moment(min,"YYYY-MM-DD");  
 }
-
+ 
 if (localStorage.maxDate != null) {
-    console.log(localStorage.maxDate);
     var max = localStorage.maxDate;
     var maxDate = moment(max,"YYYY-MM-DD");
+}
+
+var maxSet = false;
+
+if (localStorage.minDate != null) {
+    if (max != null) {
+        if (maxDate.year() == minDate.year()) {
+            if (maxDate.year() == moment().year()) {
+                $("#max").text(maxDate.format("DD MMM YYYY"));
+                $("#slider").slider("values",1,maxDate.year());
+                $("#min").text(minDate.format("DD MMM YYYY"));
+                $("#slider").slider("values",0,minDate.year()); 
+                maxSet = true;                
+            } else if (minDate.year() == 1970) {                
+                $("#min").text(minDate.format("DD MMM YYYY"));
+                $("#slider").slider("values",0,minDate.year()); 
+                $("#max").text(maxDate.format("DD MMM YYYY"));
+                $("#slider").slider("values",1,maxDate.year());
+                maxSet = true;                
+            }
+        } else {
+            $("#min").text(minDate.format("DD MMM YYYY"));
+            $("#slider").slider("values",0,minDate.year());        
+        } 
+    } else {
+        $("#min").text(minDate.format("DD MMM YYYY"));
+        $("#slider").slider("values",0,minDate.year());        
+    }
+}
+
+if (localStorage.maxDate != null && !maxSet) {
     $("#max").text(maxDate.format("DD MMM YYYY"));
     $("#slider").slider("values",1,maxDate.year());
 }

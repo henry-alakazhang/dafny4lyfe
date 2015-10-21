@@ -13,9 +13,13 @@ jQuery(function() {
     flowDragFriction: 2.0,
     onclickActiveItem: function() {}, // don't open link?
     onReachTarget: function(obj) {
-      if ((this.getNumberOfItems() % FLICKR_PER_PAGE == 0) && 
+      if ((this.getNumberOfItems() > FLICKR_PER_PAGE/2) && 
            this.getActiveItem() == this.getItem(0)) {
         search();
+
+      if (this._slideshow_stoped && !this._slideshow_locked) {
+        this._startSlideshow();
+        }
       }
     },
     onDrawItem: function(obj) {
