@@ -52,8 +52,8 @@ function fillFromLocalStorage() {
 
 function initMap() {
     var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
-    if (typeof(Storage) !== null) {
-        if (localStorage.lat != "" && localStorage.lng != "") {
+    if (typeof(Storage) !== "undefined") {
+        if (localStorage.lat != null && localStorage.lng != null) {
             myLatlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);           
         }    
     }
