@@ -6,7 +6,10 @@ jQuery(function() {
   // ContentFlow for images
   ajax_cf = new ContentFlow('ajax_cf',{
     circularFlow: false,
-    onclickActiveItem: function() {} // don't open link?
+    onclickActiveItem: function() {}, // don't open link?
+    onReachTarget: function(obj) {
+      console.log(obj);
+    }
   });
 
   function flickrMain() {
