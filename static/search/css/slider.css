@@ -102,24 +102,24 @@ output {
     background-color: #FFFFFF;
   width: 100px; 
   height: 30px; 
+  color: #78a9f7 !important;
   text-align: center; 
-  color: black; 
   border-style: solid;
   border-width: 1px;
-  border-color: #777777;
+  border-color: #4285F4;
   border-radius: 5px; 
   display: inline-block; 
   font: bold 12px/24px Georgia;
   bottom: 175%;
   left: 0;
-  box-shadow: inset 0px 0px 2px #000000;  
+  box-shadow: inset 0px 0px 2px #78a9f7;  
   margin-left: -1%;
   z-index: 8888
 }
 
 output:hover {
-    box-shadow: inset 0px 0px 2.5px 1px #333333;  
-    color: grey;    
+    box-shadow: inset 0px 0px 2.5px 1px #4285F4;  
+    color: #4285F4 !important;    
 }
 
 output:after { 
@@ -127,7 +127,7 @@ output:after {
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 10px solid #999999;
+  border-top: 10px solid #4285F4;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   top: 100%;
@@ -143,4 +143,23 @@ div.ui-datepicker{
  font-size:10px;
 }
 
+#slider {    
+    font-size:8px;
+}
 .ui-datepicker{ z-index: 9999 !important;}
+
+.ui-slider-handle {
+    background: url(../../slider/handle.png) 50% 50% repeat-x !important;
+    width:8px !important;
+    height:40px !important;
+    top:-13px !important;
+    border:none !important;
+}
+
+.ui-slider {    
+    background: #4285F4;
+}
+
+.ui-slider-range {
+    background: #78a9f7;
+}
