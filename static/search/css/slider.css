@@ -108,7 +108,8 @@ output {
   border-color: #4285F4;
   border-radius: 5px; 
   display: inline-block; 
-  font: bold 12px/24px Georgia;
+  font: bold 12px/24px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   bottom: 175%;
   left: 0;
   box-shadow: inset 0px 0px 2px #78a9f7;  
