@@ -31,26 +31,32 @@ function saveToLocalStorage() {
 }
 
 function fillFromLocalStorage() {
-    if (typeof(Storage) !== 'undefined') {        
-        $("#dist").value = localStorage.dist;
+    if (typeof(Storage) !== 'undefined') {     
         if (localStorage.tag_mode == 'any' || 'all') {
             if (localStorage.tag_mode == 'any') {
                 $("#any-toggle").bootstrapToggle('on')
             } else {
                 $("#any-toggle").bootstrapToggle('off')                
             }
-        }        
+        }   
         if (localStorage.tags != "") {
             var tags = JSON.parse(localStorage.tags);
             $("#tags-input").tokenfield('setTokens',tags);
 //             console.log("restoring tags");
+        } 
+        if (localStorage.dist != "") {
+            $("#dist").val(localStorage.dist);
         }
     }   
 }
 
 function initMap() {
   var myLatlng = new google.maps.LatLng(-33.8650, 151.2094);
-
+    if (typeof(Storage) !== 'undefined') {
+    if (localStorage.lat != "" && localStorage.lng != "") {
+        var myLatlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);           
+    }    
+  }
   map = new google.maps.Map(document.getElementById('map'), {
     center: myLatlng,
     zoom: 11,
@@ -64,12 +70,7 @@ function initMap() {
   });
   marker.addListener('dragend', updateAutocomplete);
 
-  if (typeof(Storage) !== 'undefined') {
-    if (localStorage.lat != "" && localStorage.lng != "") {
-        var latlng = new google.maps.LatLng(localStorage.lat,localStorage.lng);
-        marker.setPosition(latlng);   
-    }    
-  }
+  
   
   circle = new google.maps.Circle({
     map: map,
@@ -143,6 +144,8 @@ function initMap() {
     marker.setPosition(newSpot);
     map.setCenter(newSpot);
   });
+  
+  updateAutocomplete();
 }
 
 function updateRadius() {
@@ -224,8 +227,8 @@ function getMaxDate() {
   return date;
 }
 
-function updateAutocomplete() {gc = new google.maps.Geocoder();
-  gc = new google.maps.Geocoder();
+function updateAutocomplete() {
+  var gc = new google.maps.Geocoder();
   radiusMarker.setPosition(getRadiusPosition());
   gc.geocode({'location': marker.getPosition()}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
