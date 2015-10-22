@@ -28,16 +28,17 @@
 <body style="background-color:#FFFFFF">
   <nav class="navbar navbar-default">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/search/map">Moments</a>
+      <a class="navbar-brand logo" href="/search/map"><span class="init">M</span>oments</a>
     </div>
     <div id="tag-section" class="navbar-form navbar-left" style="width:75%">
       Showing: 
-      <input disabled type="checkbox" data-toggle="toggle" data-on="Any" data-off="All" id="any-toggle">
+          <input disabled type="checkbox" id="any-toggle" data-toggle="toggle" 
+                data-on="Any" data-onstyle="info" data-off="All" data-offstyle="primary" >
       of
       <div id="tag-box" data-placement="left" style="width:40%">
         <input disabled type="text" id="tags-input" placeholder="" style="width:100%"></input>
       </div>
-      <a id="submit" href="/search/map" class="btn btn-default">Go back</a>
+      <a id="submit" href="/search/map" class="btn btn-primary">Go back</a>
     </div>
   </nav>
   <center id="location"></center>
