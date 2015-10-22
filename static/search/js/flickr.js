@@ -53,6 +53,7 @@ jQuery(function() {
   }
 
   var count = 0;
+  changedTotalResults = false;
   search();
 
   function search() {
@@ -62,6 +63,12 @@ jQuery(function() {
         document.getElementById('ajax_cf').innerHTML = '<center style="color:#000000">No images found. <p>Try different search criteria.</p></center>';
         // display no photos and do stuff to show no that there are no results
       } else {
+        if (!changedTotalResults) {
+          var numResults = data.photos.total;
+          var string = document.getElementById('location').innerHTML;
+          var newString = string.replace("Showing", "Showing " + numResults + " ");
+          document.getElementById('location').innerHTML = newString;
+        }
         // for each photo object returned
         jQuery.each(data.photos.photo, function(index, item) {
           // put repetitive data into variables
