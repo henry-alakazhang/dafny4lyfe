@@ -68,6 +68,7 @@ jQuery(function() {
           var string = document.getElementById('location').innerHTML;
           var newString = string.replace("Showing", "Showing " + numResults + " ");
           document.getElementById('location').innerHTML = newString;
+          changedTotalResults = true;
         }
         // for each photo object returned
         jQuery.each(data.photos.photo, function(index, item) {
