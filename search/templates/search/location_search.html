@@ -53,6 +53,7 @@
     <output id="max" style="cursor: pointer"></output>
     <div id="maxDate" style="display: inline-block"></div>
   
+    <div hidden="true" id="iconid">{% static "/static/search/marker.png" %}</div>
     <script type="text/javascript" src='{% static "search/js/main.js" %}'></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqr-bcICmK4xrq1I2UAdC7z7S85D0_BxI&callback=initMap">
@@ -64,6 +65,5 @@
     <script type="text/javascript">$('#tags-input').tokenfield();
       $('#tag-box').tooltip();
     </script>
-    <div hidden="true" id="iconid">{% static "/static/search/marker.png" %}
   </body>
 </html>
