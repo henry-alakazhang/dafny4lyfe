@@ -1,6 +1,7 @@
 var years = moment().year();
+var minYear = 1870;
 $("#slider").slider({
-    min: 1970,
+    min: minYear,
     max: years,
     step: 1,
     values: [0, years],
@@ -96,8 +97,8 @@ $('#min').text("01 Jan " + $("#slider").slider("values",0)).position({
     $('#minDate').stop(true,true).datepicker("destroy").datepicker({
         changeMonth: true,
         changeYear: true,
-        yearRange: "1970:" + years,
-        minDate: "01/01/1970",
+        yearRange: minYear + ":" + years,
+        minDate: "01/01/" + minYear,
         maxDate: moment($("#max").text(),"DD MMM YYYY").subtract(1, 'days').format("MM/DD/YYYY"),
         onChangeMonthYear: function(y,m,i) {
             var delay = function() {
@@ -142,7 +143,7 @@ $('#max').text(moment().format("DD MMM YYYY")).position({
     $('#maxDate').stop(true,true).datepicker("destroy").datepicker({
         changeMonth: true,
         changeYear: true,
-        yearRange: "1970:" + years,
+        yearRange: minYear + ":" + years,
         minDate: moment($("#min").text(),"DD MMM YYYY").add(1, 'days').format("MM/DD/YYYY"),
         maxDate: 0,
         onChangeMonthYear: function(y,m,i) {
@@ -200,7 +201,7 @@ if (localStorage.minDate != null) {
                 $("#min").text(minDate.format("DD MMM YYYY"));
                 $("#slider").slider("values",0,minDate.year()); 
                 maxSet = true;                
-            } else if (minDate.year() == 1970) {                
+            } else if (minDate.year() == minYear) {                
                 $("#min").text(minDate.format("DD MMM YYYY"));
                 $("#slider").slider("values",0,minDate.year()); 
                 $("#max").text(maxDate.format("DD MMM YYYY"));
