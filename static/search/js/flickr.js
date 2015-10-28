@@ -42,7 +42,7 @@ jQuery(function() {
     radius: (getQueryVar('dist')/1000),
     tag_mode: 'all',
     sort: 'date-taken-desc',
-    extras: 'date_taken',
+    extras: 'date_taken, url_l, url_c, url_z, url_n',
     format: 'json',
     per_page: FLICKR_PER_PAGE, 
     page: '1'
@@ -78,9 +78,21 @@ jQuery(function() {
           // formulate urls for the photo
           var photoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
                          item.server + '/' + item.id + '_' + item.secret + '_m.jpg';
-          var largePhotoUrl = 'http://farm' + item.farm + '.static.flickr.com/' + 
-                         item.server + '/' + item.id + '_' + item.secret + '_b.jpg';
           var photoSourceUrl = 'http://flickr.com/photos/' + item.owner + '/' + item.id;
+          
+          // Find the largest existing out of m, n, z, c
+          var largePhotoUrl = "";
+          if (item.url_l) {
+            largePhotoUrl = item.url_l;
+          } else if (item.url_c) { 
+            largePhotoUrl = item.url_c; 
+          } else if (item.url_z) { 
+            largePhotoUrl = item.url_z; 
+          } else if (item.url_n) { 
+            largePhotoUrl = item.url_n; 
+          } else { 
+            largePhotoUrl = photoUrl; 
+          }
           // The 'item' element (for the contentflow)
           var boxDom = document.createElement("A");
           boxDom.setAttribute("class", "fancybox item");
