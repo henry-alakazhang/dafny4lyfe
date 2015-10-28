@@ -143,7 +143,8 @@ function initMap() {
   autocomplete.addListener('place_changed', function(){
     newSpot = autocomplete.getPlace().geometry.location;
     marker.setPosition(newSpot);
-    map.setCenter(newSpot);
+    map.setCenter(marker.position);
+    checkRadius();
   });
   
   updateAutocomplete();
