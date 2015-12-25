@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import flickrapi
+#import flickrapi
 import math
 import datetime
 
