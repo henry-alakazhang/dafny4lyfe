@@ -6,8 +6,8 @@ import datetime
 FLICKR_API_KEY = u'd924f5ea2a765922fc8794b3f9942133'
 FLICKR_API_SECRET = u'2eefb6d5fbaab4f4'
 
-flickr = flickrapi.FlickrAPI(FLICKR_API_KEY, FLICKR_API_SECRET, cache=True)
-flickr.cache = flickrapi.SimpleCache(timeout=300, max_entries=200)
+#flickr = flickrapi.FlickrAPI(FLICKR_API_KEY, FLICKR_API_SECRET, cache=True)
+#flickr.cache = flickrapi.SimpleCache(timeout=300, max_entries=200)
 
 def tag_search(request):
    return render(request, 'search/tag_search.html')
