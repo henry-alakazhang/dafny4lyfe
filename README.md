@@ -3,9 +3,11 @@ Moments
 ####A UNSW SENG2021 Project by dafny4lyfe (15S2)
 (no longer being developed or maintained)
 
+Prototype available here: [http://dafny4lyfe.pythonanywhere.com/](http://dafny4lyfe.pythonanywhere.com/)
+
 Moments lets you search for and navigate through images via date, time and location more easily. It utilises the flickr API to search for and display images from the flickr repository. You can limit the search radius as well as the data range via the elements that overlay the map. AJAX is used to dynamically add images to the gallery as you scroll to the oldest end. Images are sorted newest first (on the right). Best for viewing location changes over time, events during a particular time (conventions, disasters) and images of something in particular from a specific area.
 
-The original requirement for the project was to make use of an existing data source to create a website/webapp that enhances the user experience. Our team had started with virtually no experience with web APIs, Django and little experience in web development. The time allocated for this project was about 10 weeks, but the actual implementation period when you take away documentation/planning stages (and procrastination...) was closer to 1 month.
+The original requirement for the project was to make use of an existing data source to create a website/webapp _prototype_ that enhances the user experience. Our team had started with virtually no experience with web APIs, Django and little experience in web development. The time allocated for this project was about 10 weeks, but the actual implementation period when you take away documentation/planning stages (and procrastination...) was closer to 1 month.
 
 ####Instructions
 The webapp should be mostly intuitive as long as you explore the UI.  
