@@ -1,1 +1,1 @@
-web: gunicorn dafny4lyfe.wsgi app
+python manage.py runserver
